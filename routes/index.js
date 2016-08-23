@@ -30,4 +30,9 @@ router.get('/contact', function(req, res, next) {
   res.render('contact', { title: 'Contact Us' });
 });
 
+router.get('/student', function(req, res, next) {
+  res.render('./student/index', { title: 'Contact Us' });
+});
+
+
 module.exports = router;
