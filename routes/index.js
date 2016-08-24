@@ -3,15 +3,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'SIMS | Admin Panel' });
 });
 
 router.get('/new_student', function(req, res, next) {
-  res.render('new_student', { title: 'About Nkhoma University' });
+  res.render('new_student', { title: 'SIMS | Register Student' });
 });
 
-router.get('/courses', function(req, res, next) {
-  res.render('courses', { title: 'Our Courses' });
+router.get('/view_students', function(req, res, next) {
+  res.render('view_students', { title: 'SIMS | View Students' });
 });
 
 router.get('/events', function(req, res, next) {
