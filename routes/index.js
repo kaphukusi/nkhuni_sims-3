@@ -6,8 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/about', function(req, res, next) {
-  res.render('about', { title: 'About Nkhoma University' });
+router.get('/new_student', function(req, res, next) {
+  res.render('new_student', { title: 'About Nkhoma University' });
 });
 
 router.get('/courses', function(req, res, next) {
