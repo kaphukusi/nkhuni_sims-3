@@ -14,6 +14,16 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
+
+  <link rel="stylesheet" href="plugins/iCheck/all.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="plugins/colorpicker/bootstrap-colorpicker.min.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -72,13 +82,13 @@
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
+                    <a href="#">View Details</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
+                    <a href="#">Change password</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
+                    <a href="#">View users</a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -239,201 +249,202 @@
 
     <!-- Main content -->
     <section class="content">
-      <!-- Info boxes -->
       <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">TOTAL NUMBER OF STUDENTS</span>
-              <span class="info-box-number">90<small> </small></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">EDUCATION</span>
-              <span class="info-box-number">41,410</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">COMMERCE</span>
-              <span class="info-box-number">760</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">THEOLOGY</span>
-              <span class="info-box-number">2,000</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-
-      <div class="row">
+        
+        
         <div class="col-md-12">
-          <div class="box">
+          <!-- Horizontal Form -->
+          <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Student Progress Report</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-wrench"></i></button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-                </div>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
+              <h3 class="box-title">Student Registration Form</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-8">
-                  <p class="text-center">
-                    <strong>Student Performance: August, 2016 - June, 2017</strong>
-                  </p>
+            <!-- form start -->
+            <form class="form-horizontal">
+              <div class="box-body">
 
-                  <div class="chart">
-                    <!-- Sales Chart Canvas -->
-                    <canvas id="salesChart" style="height: 180px;"></canvas>
-                  </div>
-                  <!-- /.chart-responsive -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-4">
-                  <p class="text-center">
-                    <strong>Semester Goal Completion</strong>
-                  </p>
-
-                  <div class="progress-group">
-                    <span class="progress-text">Reported this semester</span>
-                    <span class="progress-number"><b>160</b>/200</span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Passed Last semester Exams</span>
-                    <span class="progress-number"><b>310</b>/400</span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-red" style="width: 80%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Finished school fees payment</span>
-                    <span class="progress-number"><b>480</b>/800</span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Any other information</span>
-                    <span class="progress-number"><b>250</b>/500</span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                </div>
-                <!-- /.col -->
+                
+                <!-- /.input group -->
               </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-            <div class="box-footer">
-              <div class="row">
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> </span>
-                    <h5 class="description-header">  </h5>
-                    <span class="description-text">TOTAL</span>
+
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">First Name</label>
+
+                  <div class="col-sm-2">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="First Name">
                   </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> </span>
-                    <h5 class="description-header">  </h5>
-                    <span class="description-text">TOTAL</span>
+                  <label for="inputPassword3" class="col-sm-2 control-label">Middle Name</label>
+
+                  <div class="col-sm-2">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Middle Name">
                   </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> </span>
-                    <h5 class="description-header">  </h5>
-                    <span class="description-text">TOTAL</span>
+                  <label for="inputPassword3" class="col-sm-2 control-label">Surname</label>
+
+                  <div class="col-sm-2">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Surname">
                   </div>
-                  <!-- /.description-block -->
                 </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block">
-                    <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">1200</h5>
-                    <span class="description-text">GOAL COMPLETIONS</span>
+
+
+
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Phone</label>
+
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Phone">
                   </div>
-                  <!-- /.description-block -->
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">WhatsApp</label>
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="WhatsApp">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">Gender</label>
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Gender">
+                  </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Home village</label>
+
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Student’s home village">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">T/A</label>
+
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Traditional Authority">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">District</label>
+
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="District">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Qualification</label>
+
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Student’s Qualification">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">Programme</label>
+
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Programme being registered for">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">Major Area of study</label>
+
+                  <div class="col-sm-2">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Area of Study">
+                  </div>
+                </div>
+
+                <hr>
+
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Date registered</label>
+
+                  <div class="col-sm-4">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Date registered">
+                  </div>
+                  <label for="inputEmail3" class="col-sm-2 control-label">Level</label>
+
+                  <div class="col-sm-4">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Year of study">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Religion/church</label>
+
+                  <div class="col-sm-4">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Student’s religion/church">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">Marital status</label>
+
+                  <div class="col-sm-4">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Student’s marital status">
+                  </div>
+                </div>
+
+                 <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Current employer</label>
+
+                  <div class="col-sm-4">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Current employer (if applicable)">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">Actual place of work/live</label>
+
+                  <div class="col-sm-4">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Actual place where the student works or lives">
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Student’s guardian</label>
+
+                  <div class="col-sm-4">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Guardian full name">
+                  </div>
+
+                  <label for="inputEmail3" class="col-sm-2 control-label">Guardian’s phone</label>
+
+                  <div class="col-sm-4">
+                    <input type="textarea" class="form-control" id="inputEmail3" placeholder="Guardian’s phone">
+                  </div>
+
+                </div>
+
+                <hr>
+
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Student’s postal address</label>
+
+                  <div class="col-sm-4">
+                  <textarea class="form-control" placeholder="Student’s postal address"></textarea>
+                  </div>
+                </div>
+
+               
+
+                <div class="form-group">
+                  
+                </div>
+
+                
+
+                <div class="form-group">
+                  
+                </div>
+
+                <div class="form-group">
+                  
+                </div>
+                
               </div>
-              <!-- /.row -->
-            </div>
-            <!-- /.box-footer -->
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-info pull-right">Submit</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
           </div>
           <!-- /.box -->
+          
         </div>
-        <!-- /.col -->
+        <!--/.col (right) -->
       </div>
       <!-- /.row -->
-
-      
     </section>
     <!-- /.content -->
   </div>
@@ -441,9 +452,9 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.2
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2016 <a href="http://almsaeedstudio.com">Nkhoma University</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -663,5 +674,86 @@
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+<script src="plugins/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="plugins/iCheck/icheck.min.js"></script>
+<
+<!-- Page script -->
+
+
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+
+    //Datemask dd/mm/yyyy
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Datemask2 mm/dd/yyyy
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    //Money Euro
+    $("[data-mask]").inputmask();
+
+    //Date range picker
+    $('#reservation').daterangepicker();
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+        {
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment()
+        },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    );
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+    });
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass: 'iradio_minimal-red'
+    });
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass: 'iradio_flat-green'
+    });
+
+    //Colorpicker
+    $(".my-colorpicker1").colorpicker();
+    //color picker with addon
+    $(".my-colorpicker2").colorpicker();
+
+    //Timepicker
+    $(".timepicker").timepicker({
+      showInputs: false
+    });
+  });
+</script>
+
+
 </body>
 </html>
