@@ -34,5 +34,10 @@ router.get('/student', function(req, res, next) {
   res.render('./student/index', { title: 'Contact Us' });
 });
 
+router.get('/courses/add', function(req, res, next) {
+  res.render('./courses/add_course', { title: 'Add Course' });
+});
+
+
 
 module.exports = router;
