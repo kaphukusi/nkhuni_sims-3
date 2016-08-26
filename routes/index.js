@@ -26,11 +26,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/new_student', function(req, res, next) {
-  res.render('new_student', { title: 'SIMS | Register Student' });
+  res.render('./student/new_student', { title: 'SIMS | Register Student' });
 });
 
 router.get('/view_students', function(req, res, next) {
-  res.render('view_students', { title: 'SIMS | View Students' });
+  res.render('./student/view_students', { title: 'SIMS | View Students' });
 });
 
 router.get('/new_falculty', function(req, res, next) {
@@ -38,15 +38,15 @@ router.get('/new_falculty', function(req, res, next) {
 });
 
 router.get('/view_falculties', function(req, res, next) {
-  res.render('view_falculties', { title: 'SIMS | View Falculties' });
+  res.render('./faculty/view_falculties', { title: 'SIMS | View Falculties' });
 });
 
 router.get('/new_department', function(req, res, next) {
-  res.render('new_department', { title: 'SIMS | New Department' });
+  res.render('./department/new_department', { title: 'SIMS | New Department' });
 });
 
 router.get('/view_departments', function(req, res, next) {
-  res.render('view_departments', { title: 'SIMS | View Departments' });
+  res.render('./department/view_departments', { title: 'SIMS | View Departments' });
 });
 
 router.get('/student', function(req, res, next) {
@@ -75,6 +75,11 @@ router.post('/add_department', function (req, res, next) {
 
     })
 });
+
+router.get('/courses/add', function(req, res, next) {
+  res.render('./courses/add_course', { title: 'Add Course' });
+});
+
 
 
 module.exports = router;
