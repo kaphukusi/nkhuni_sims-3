@@ -19,6 +19,7 @@ var fse = require('fs-extra');
 Department = model.Department;
 Faculty = model.Faculty;
 Campus = model.Campus;
+Course = model.Courses;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -79,6 +80,52 @@ router.post('/add_department', function (req, res, next) {
 
 router.get('/courses/add', function(req, res, next) {
   res.render('./courses/add_course', { title: 'Add Course' });
+});
+
+router.post('/courses/new',function(req,res,next){
+
+    var params = req.body;
+
+    var name = params.name;
+
+    var code = params.code;
+
+    var department = params.department;
+
+    var year_offered = params.year_offered;
+
+    var semester_offered = params.semester_offered;
+
+    var lecture_hours = params.lecture_hours;
+
+    var lab_hours = params.lab_hours;
+
+    var course = {
+
+                  course_code : code,
+
+                  course_name : name,
+
+                  department_id : department,
+
+                  course_year_offered : year_offered,
+
+                  course_semester : semester_offered,
+
+                  course_lecture_hours : lecture_hours,
+
+                  course_lab_hours : lab_hours
+
+    }
+
+    new Courses(course).save().then(function(object){
+
+          res.send("Course successfully Added");
+
+    });
+
+ 
+
 });
 
 

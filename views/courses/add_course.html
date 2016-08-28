@@ -258,44 +258,71 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="POST" action="/courses/new" >
               <div class="box-body">
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                  <label for="name" class="col-sm-2 control-label">Name</label>
 
                   <div class="col-sm-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="department name">
+                    <input  class="form-control" name="name" placeholder="Course Name">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Code</label>
+                  <label for="code" class="col-sm-2 control-label">Code</label>
 
                   <div class="col-sm-5">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Department code">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
-
-                  <div class="col-sm-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="department_description">
+                    <input  class="form-control" name="code" placeholder="Course code">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                  <label for="department" class="col-sm-2 control-label">Department</label>
 
                   <div class="col-sm-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="department_email">
+                      <select name="department">
+                            <option value="1">Theology</option>
+                            <option value="2">Mathematical Science</option>
+                      </select>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Telephone</label>
+                  <label for="year_offered" class="col-sm-2 control-label">Year Offered</label>
+
+                 <div class="col-sm-5">
+                      <select name="year_offered">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                      </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="semester_offered" class="col-sm-2 control-label">Semester Offered</label>
 
                   <div class="col-sm-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="telephone">
+                      <select name="semester_offered">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                      </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="lecture_hours" class="col-sm-2 control-label">Lecture Hours per week</label>
+
+                  <div class="col-sm-5">
+                    <input type="lecture" class="form-control" name="lecture_hours" type="number" placeholder="Lecture Hours">
+                  </div>
+                </div>
+
+               <div class="form-group">
+                  <label for="lab_hours" class="col-sm-2 control-label">Lab Hours per week</label>
+
+                  <div class="col-sm-5">
+                    <input type="lecture" class="form-control" name="lab_hours" type="number" placeholder="Lab Hours">
                   </div>
                 </div>
                 
