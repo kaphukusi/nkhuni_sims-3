@@ -17,7 +17,7 @@ var fse = require('fs-extra');
 
 
 Department = model.Department;
-Falculty = model.Falculty;
+Faculty = model.Faculty;
 Campus = model.Campus;
 
 /* GET home page. */
@@ -34,7 +34,7 @@ router.get('/view_students', function(req, res, next) {
 });
 
 router.get('/new_falculty', function(req, res, next) {
-  res.render('new_falculty', { title: 'SIMS | Add Falculty' });
+  res.render('./faculty/new_falculty', { title: 'SIMS | Add Falculty' });
 });
 
 router.get('/view_falculties', function(req, res, next) {
@@ -62,14 +62,15 @@ router.post('/add_department', function (req, res, next) {
 
     console.log(description);
 
-    new Campus({
-        campus: 1,
-        location: 'code',
-        address: 'name',
-        tel: 'category',
-        email: 'hopekaphukusi@gmail.com',
+    new Faculty({
+        campus_id: 1,
+        faculty_shortname: 'faculty_shortname',
+        faculty_name: 'faculty_name',
+        faculty_description: 'faculty_description',
+        faculty_email: 'hopekaphukusi@gmail.com',
+        telephone: '02245655'
         
-    }).save().then(function (campus) {
+    }).save().then(function (faculties) {
 
        //console.log('Default user successfully set');
 
