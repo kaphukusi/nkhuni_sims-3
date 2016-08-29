@@ -13,7 +13,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+  <link rel="stylesheet" href="/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 
   <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker-bs3.css">
 
@@ -258,84 +258,92 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" method="POST" action="/course/add" >
+            <form class="form-horizontal" action="/programme/add" method="POST" >
               <div class="box-body">
                 <div class="form-group">
-                  <label for="name" class="col-sm-2 control-label">Name</label>
+                  <label for="" class="col-sm-2 control-label">Name</label>
 
                   <div class="col-sm-5">
-                    <input  class="form-control" name="name" placeholder="Course Name">
+                    <input type="text" name="name" class="form-control"  placeholder="e.g Master of Science in Biostatics">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="code" class="col-sm-2 control-label">Code</label>
+                  <label for="" class="col-sm-2 control-label">Code</label>
 
                   <div class="col-sm-5">
-                    <input  class="form-control" name="code" placeholder="Course code">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="department" class="col-sm-2 control-label">Department</label>
-
-                  <div class="col-sm-5">
-                      <select name="department" id="department">
-
-                            <% departments.forEach(function(department) { %>
-
-                                            <option value="<%= department.department_id %>"><%= department.department_name %></option>
-
-                              <% }); %>
-                        
-                      </select>
+                    <input type="text" name="code" class="form-control"  placeholder="Programme Code">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="year_offered" class="col-sm-2 control-label">Year Offered</label>
+                  <label for="level" class="col-sm-2 control-label">Level</label>
 
-                 <div class="col-sm-5">
-                      <select name="year_offered">
+                  <div class="col-sm-5">
+                    <input type="text" name="level" class="form-control"  placeholder="Level">
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <label for="type_of_award" class="col-sm-2 control-label">Type of Award</label>
+
+                  <div class="col-sm-5">
+                    <input type="text" name="type_of_reward" class="form-control"  placeholder="e.g Msc">
+                  </div>
+                  
+                </div>
+
+                <div class="form-group">
+                  <label for="name_of_award" class="col-sm-2 control-label">Name of Award</label>
+
+                  <div class="col-sm-5">
+                    <input type="text" name="name_of_award" class="form-control"  placeholder="e.g Master of Science">
+                  </div>
+                  
+                </div>
+
+                <div class="form-group">
+                  <label for="years_of_study" class="col-sm-2 control-label">Years Of Study</label>
+
+                  <div class="col-sm-5">
+                        <select name="years_of_study">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                       </select>
                   </div>
+                  
                 </div>
 
                 <div class="form-group">
-                  <label for="semester_offered" class="col-sm-2 control-label">Semester Offered</label>
+                  <label for="description" class="col-sm-2 control-label">Description</label>
 
                   <div class="col-sm-5">
-                      <select name="semester_offered">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                    <input type="text" name="description" class="form-control"  placeholder="Department Description">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="faculty" class="col-sm-2 control-label">Faculty</label>
+
+                  <div class="col-sm-5">
+                      <select name="faculty" id="faculty">
+
+                            <% faculties.forEach(function(faculty) { %>
+
+                                            <option value="<%= faculty.faculty_id %>"><%= faculty.faculty_name %></option>
+
+                              <% }); %>
+                        
                       </select>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label for="lecture_hours" class="col-sm-2 control-label">Lecture Hours per week</label>
-
-                  <div class="col-sm-5">
-                    <input type="lecture" class="form-control" name="lecture_hours" type="number" placeholder="Lecture Hours">
-                  </div>
-                </div>
-
-               <div class="form-group">
-                  <label for="lab_hours" class="col-sm-2 control-label">Lab Hours per week</label>
-
-                  <div class="col-sm-5">
-                    <input type="lecture" class="form-control" name="lab_hours" type="number" placeholder="Lab Hours">
-                  </div>
-                </div>
                 
-              </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right">Submit</button>
+                <button onclick="window.location.href='/'" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
               </div>
               <!-- /.box-footer -->
             </form>
@@ -355,198 +363,11 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2016 <a href="http://almsaeedstudio.com">Nkhoma University</a>.</strong> All rights
+    <strong>Copyright &copy; 2016 <a href="http://www.nkhoma.ac.mw">Nkhoma University</a>.</strong> All rights
     reserved.
   </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript::;">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript::;">
-              <i class="menu-icon fa fa-user bg-yellow"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                <p>New phone +1(800)555-1234</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript::;">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                <p>nora@example.com</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript::;">
-              <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                <p>Execution time 5 seconds</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript::;">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript::;">
-              <h4 class="control-sidebar-subheading">
-                Update Resume
-                <span class="label label-success pull-right">95%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript::;">
-              <h4 class="control-sidebar-subheading">
-                Laravel Integration
-                <span class="label label-warning pull-right">50%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript::;">
-              <h4 class="control-sidebar-subheading">
-                Back End Framework
-                <span class="label label-primary pull-right">68%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Allow mail redirect
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Other sets of options are available
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Expose author name in posts
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Allow the user to show his name in blog posts
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Show me as online
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Turn off notifications
-              <input type="checkbox" class="pull-right">
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Delete chat history
-              <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-            </label>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
+  
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
@@ -592,7 +413,77 @@
 
 
 <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+
+    //Datemask dd/mm/yyyy
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Datemask2 mm/dd/yyyy
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    //Money Euro
+    $("[data-mask]").inputmask();
+
+    //Date range picker
+    $('#reservation').daterangepicker();
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+        {
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment()
+        },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    );
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+    });
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass: 'iradio_minimal-red'
+    });
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass: 'iradio_flat-green'
+    });
+
+    //Colorpicker
+    $(".my-colorpicker1").colorpicker();
+    //color picker with addon
+    $(".my-colorpicker2").colorpicker();
+
+    //Timepicker
+    $(".timepicker").timepicker({
+      showInputs: false
+    });
+  });
 </script>
+
+<script type="text/javascript">
+                                $("[rel=tooltip]").tooltip();
+
+                                function submitNewsForm() {
+                                    document.forms[0].submit();
+                                }
+
+</script>
+
 
 </body>
 </html>

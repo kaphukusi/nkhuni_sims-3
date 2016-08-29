@@ -20,6 +20,7 @@ Department = model.Department;
 Faculty = model.Faculty;
 Campus = model.Campus;
 Course = model.Courses;
+Programme = model.Programmes;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -37,7 +38,9 @@ router.get('/view_students', function(req, res, next) {
 //faculty actions
 
 router.get('/new_falculty', function(req, res, next) {
+
   res.render('./faculty/new_falculty', { title: 'SIMS | Add Falculty' });
+
 });
 
 router.post('/faculty/add',function(req,res,next){
@@ -107,6 +110,7 @@ router.get('/student', function(req, res, next) {
 });
 
 router.post('/department/add', function (req, res, next) {
+
     var params = req.body;
 
     var name = params.name;
@@ -144,7 +148,7 @@ router.post('/department/add', function (req, res, next) {
     })
 });
 
-router.get('/courses/add', function(req, res, next) {
+router.get('/courses/new', function(req, res, next) {
 
   new Department().fetchAll().then(function(departments) {
 
@@ -163,11 +167,10 @@ router.get('/courses/add', function(req, res, next) {
   
 });
 
-router.post('/course/new',function(req,res,next){
+router.post('/course/add',function(req,res,next){
 
 
     var params = req.body;
-
 
     var name = params.name;
 
@@ -208,6 +211,75 @@ router.post('/course/new',function(req,res,next){
     });
 
  
+
+});
+
+router.get("/programme/new",function(req,res,next){
+
+      new Faculty().fetchAll().then(function(faculties) {
+
+      var faculties = faculties.toJSON();
+
+      res.render('programme/new_programme', { title: 'SIMS | New Programme' , faculties: faculties});
+
+        }).catch(function(error) {
+
+          console.log(error);
+
+          res.send('An error occured');
+
+        });
+
+});
+
+router.post('/programme/add',function(req,res,next){
+
+
+    var params = req.body;
+
+    var name = params.name;
+
+    var code = params.code;
+
+    var level = params.level;
+
+    var type_of_award = params.type_of_award;
+
+    var name_of_award = params.name_of_award;
+
+    var years_of_study = params.years_of_study;
+
+    var description = params.description;
+
+    var faculty = params.faculty;
+
+    var pogramme  = {
+
+                  faculty_id : faculty,
+
+                  programme_code : code,
+
+                  programme_name : name,
+
+                  programme_type_of_award : type_of_award,
+
+                  programme_level : level,
+
+                  programme_name_of_award : name_of_award,
+
+                  programme_years_of_study : years_of_study,
+
+                  programme_description : description ,
+
+                  campus_id : 1
+
+    }
+
+    new Programme(programme).save().then(function(object){
+
+          res.send("Programme successfully Added");
+
+    });
 
 });
 
