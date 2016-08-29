@@ -2,7 +2,7 @@ module.exports = {
     'connection': {
         'host': 'localhost',
         'user': 'root',
-        'password': 'letmein'
+        'password': 'Mnzysk123'
     },
 	'database': 'nkhoma_smis'
 };

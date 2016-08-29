@@ -34,57 +34,140 @@ router.get('/view_students', function(req, res, next) {
   res.render('./student/view_students', { title: 'SIMS | View Students' });
 });
 
+//faculty actions
+
 router.get('/new_falculty', function(req, res, next) {
   res.render('./faculty/new_falculty', { title: 'SIMS | Add Falculty' });
 });
 
-router.get('/view_falculties', function(req, res, next) {
-  res.render('./faculty/view_falculties', { title: 'SIMS | View Falculties' });
-});
+router.post('/faculty/add',function(req,res,next){
 
-router.get('/new_department', function(req, res, next) {
-  res.render('./department/new_department', { title: 'SIMS | New Department' });
-});
+    var params = req.body;
 
-router.get('/view_departments', function(req, res, next) {
-  res.render('./department/view_departments', { title: 'SIMS | View Departments' });
-});
+    var name = params.name;
 
-router.get('/student', function(req, res, next) {
-  res.render('./student/index', { title: 'SIMS | Home' });
-});
+    var code = params.code;
 
-router.post('/add_department', function (req, res, next) {
-    name = req.body.name;
-    code = req.body.code;
-    description = req.body.description;
-    email = req.body.email;
-    telephone = req.body.telephone;
+    var description = params.description;
 
-    console.log(description);
+    var email = params.email;
+
+    var telephone = params.telephone;
 
     new Faculty({
         campus_id: 1,
-        faculty_shortname: 'faculty_shortname',
-        faculty_name: 'faculty_name',
-        faculty_description: 'faculty_description',
-        faculty_email: 'hopekaphukusi@gmail.com',
-        telephone: '02245655'
+        faculty_shortname: code,
+        faculty_name: name,
+        faculty_description: description,
+        faculty_email: email,
+        telephone: telephone
         
     }).save().then(function (faculties) {
 
-       //console.log('Default user successfully set');
+       res.send("Faculty Added");
+
+    });
+
+});
+
+router.get('/view_falculties', function(req, res, next) {
+
+  res.render('./faculty/view_falculties', { title: 'SIMS | View Falculties' });
+
+});
+
+router.get('/new_department', function(req, res, next) {
+
+  new Faculty().fetchAll().then(function(faculties) {
+
+      var faculties = faculties.toJSON();
+
+      res.render('department/new_department', { title: 'SIMS | New Department' , faculties: faculties});
+
+    }).catch(function(error) {
+
+      console.log(error);
+
+      res.send('An error occured');
+
+    });
+
+});
+
+router.get('/view_departments', function(req, res, next) {
+
+  res.render('./department/view_departments', { title: 'SIMS | View Departments' });
+
+});
+
+router.get('/student', function(req, res, next) {
+
+  res.render('./student/index', { title: 'SIMS | Home' });
+
+});
+
+router.post('/department/add', function (req, res, next) {
+    var params = req.body;
+
+    var name = params.name;
+
+    var code = params.code;
+
+    var faculty = params.faculty
+
+    var description = params.description;
+
+    var email = params.email;
+
+    var telephone = params.telephone;
+
+    console.log(description);
+
+    new Department({
+
+        faculty_id: faculty,
+
+        department_code: code,
+
+        department_name: name,
+
+        department_description: description,
+
+        department_email: email,
+
+        telephone: telephone
+        
+    }).save().then(function (faculties) {
+
+       res.send("Department Added")
 
     })
 });
 
 router.get('/courses/add', function(req, res, next) {
-  res.render('./courses/add_course', { title: 'Add Course' });
+
+  new Department().fetchAll().then(function(departments) {
+
+      var departments = departments .toJSON();
+
+      res.render('courses/add_course', { title: 'Add Course' , departments: departments });
+
+    }).catch(function(error) {
+
+      console.log(error);
+
+      res.send('An error occured');
+
+    });
+
+  
 });
 
-router.post('/courses/new',function(req,res,next){
+router.post('/course/new',function(req,res,next){
+
 
     var params = req.body;
+
 
     var name = params.name;
 
@@ -118,7 +201,7 @@ router.post('/courses/new',function(req,res,next){
 
     }
 
-    new Courses(course).save().then(function(object){
+    new Course(course).save().then(function(object){
 
           res.send("Course successfully Added");
 
