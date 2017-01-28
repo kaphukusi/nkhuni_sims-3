@@ -21,6 +21,7 @@ Faculty = model.Faculty;
 Campus = model.Campus;
 Course = model.Courses;
 Programme = model.Programmes;
+Student = model.Students;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -33,6 +34,78 @@ router.get('/new_student', function(req, res, next) {
 
 router.get('/view_students', function(req, res, next) {
   res.render('./student/view_students', { title: 'SIMS | View Students' });
+});
+
+router.post('/student/add', function (req, res, next) {
+
+    var params = req.body;
+
+    var f_name = params.fname;
+
+    var m_name = params.mname;
+
+    var s_name = params.sname
+
+    var phone = params.phone;
+
+    var whatsapp = params.whatsapp;
+
+    var gender = params.gender;
+
+    var homevillage = params.homevillage;
+
+    var ta = params.ta;
+
+    var district = params.district;
+
+    var qualification = params.qualification;
+
+    var programme = params.programme;
+
+    var major_area_of_study = params.major_area_of_study;
+
+    var date_registered = params.date_registered;
+
+    var level = params.level;
+
+    var religion_church = params.religion_church;
+
+    var marital_status = params.marital_status
+
+    var current_employer = params.current_employer;
+
+    var place_of_work = params.place_of_work;
+
+    var guardian = params.guardian;
+
+    var guardian_phone = params.guardian_phone;
+
+    var postal_address = params.postal_address;
+
+    console.log(postal_address);
+
+    new Student({
+      rego: 1,
+      first_name: f_name,
+      last_name: s_name,
+      middle_name: m_name,
+      marital_status: marital_status,
+      religion: religion_church,
+      village: homevillage,
+      ta: ta,
+      district_id: 1,
+      nationalty_id: 1,
+      gender: gender,
+      enrollment_year: 2003,
+      programme_code: MAT,
+      programme: Mathematical,
+      year_of_study: 2
+        
+    }).save().then(function (students) {
+
+       res.send("Student Added");
+
+    });
 });
 
 //faculty actions
@@ -99,7 +172,13 @@ router.get('/new_department', function(req, res, next) {
 
 router.get('/view_departments', function(req, res, next) {
 
-  res.render('./department/view_departments', { title: 'SIMS | View Departments' });
+  knex('departments').then(function (departments){
+
+  res.render('./department/view_departments', { title: 'SIMS | View Departments', departments: departments });
+
+  console.log(departments);
+
+});
 
 });
 
@@ -148,7 +227,7 @@ router.post('/department/add', function (req, res, next) {
     })
 });
 
-router.get('/courses/new', function(req, res, next) {
+router.get('/add_course', function(req, res, next) {
 
   new Department().fetchAll().then(function(departments) {
 

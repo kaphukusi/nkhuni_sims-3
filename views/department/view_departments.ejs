@@ -25,7 +25,6 @@
 <div class="wrapper">
 
   <header class="main-header">
-
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -243,7 +242,9 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th></th>
                   <th>Department Name</th>
+                  <th></th>
                   <th>Code</th>
                   <th>Description</th>
                   <th>Email</th>
@@ -251,18 +252,24 @@
                 </tr>
                 </thead>
                 <tbody>
+                <% var count = 1%>
+                <% for (var row in departments){ %>
                 <tr>
-                  <td>Mathematics</td>
-                  <td>01 </td>
-                  <td>Mathematics, Computing, Statistics</td>
-                  <td> mathematics@nkhoma.ac.mw</td>
-                  <td>01 256 124</td>
+                  <td style="font-weight: bold;"><%= count %>.</td>
+                  <td><%= departments[row].department_name %> <td>
+                  <td><%= departments[row].department_code %> </td>
+                  <td><%= departments[row].department_description %></td>
+                  <td><%= departments[row].department_email %></td>
+                  <td><%= departments[row].telephone %></td>
                 </tr>
-                
+                <% count = count + 1 %>
+                <% } %>
                 </tbody>
                 <tfoot>
                 <tr>
+                  <th></th>
                   <th>Department Name</th>
+                  <th></th>
                   <th>Code</th>
                   <th>Description</th>
                   <th>Email</th>
