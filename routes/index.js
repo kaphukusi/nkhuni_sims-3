@@ -119,15 +119,10 @@ router.get('/new_falculty', function(req, res, next) {
 router.post('/faculty/add',function(req,res,next){
 
     var params = req.body;
-
     var name = params.name;
-
     var code = params.code;
-
     var description = params.description;
-
     var email = params.email;
-
     var telephone = params.telephone;
 
     new Faculty({
@@ -137,20 +132,53 @@ router.post('/faculty/add',function(req,res,next){
         faculty_description: description,
         faculty_email: email,
         telephone: telephone
-        
     }).save().then(function (faculties) {
 
        res.send("Faculty Added");
 
     });
+});
 
+router.post('/faculty/save_edited', function (req, res, next) {
+    faculty_id = req.body.faculty_id;
+    name = req.body.name;
+    code = req.body.code;
+    description = req.body.description;
+    email = req.body.email;
+    telephone = req.body.telephone;
+
+    new Faculty({faculty_id: faculty_id}).save({
+        faculty_name: name, 
+        faculty_shortname: code,
+        faculty_description: description,
+        faculty_email: email,
+        telephone: telephone
+        })
+            .then(function (faculties) {
+                res.redirect("/view_falculties?faculty_id=" + faculty_id);
+            });
 });
 
 router.get('/view_falculties', function(req, res, next) {
 
-  res.render('./faculty/view_falculties', { title: 'SIMS | View Falculties' });
+  knex('faculties').then(function(faculties){
+
+    res.render('./faculty/view_falculties', { title: 'SIMS | View Falculties', faculties: faculties  } );
+
+  });
 
 });
+
+router.get('/edit_this_faculty', function(req, res, next) {
+
+  knex('faculties').where({faculty_id: req.query.faculty_id}).limit(1).then(function(this_faculty){
+
+    res.render('./faculty/edit_this_faculty', { title: 'SIMS | Edit Faculty', this_faculty: this_faculty[0]  } );
+
+  });
+
+});
+
 
 router.get('/new_department', function(req, res, next) {
 
@@ -176,7 +204,7 @@ router.get('/view_departments', function(req, res, next) {
 
   res.render('./department/view_departments', { title: 'SIMS | View Departments', departments: departments });
 
-  console.log(departments);
+  //console.log(departments);
 
 });
 

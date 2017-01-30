@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Nkhoma University | Admin</title>
+  <title><%= title %></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -140,8 +140,6 @@
           <ul class="treeview-menu">
             <li><a href="/new_student"><i class="fa fa-circle-o"></i> Register Student</a></li>
             <li><a href="/view_students"><i class="fa fa-circle-o"></i> View Students</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Update Student Information</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Remove Student</a></li>
           </ul>
         </li>
 
@@ -153,8 +151,6 @@
           <ul class="treeview-menu">
             <li><a href="/new_falculty"><i class="fa fa-circle-o"></i> Add Faculty</a></li>
             <li><a href="/view_falculties"><i class="fa fa-circle-o"></i> View Faculties</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Edit Faculties</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Delete Faculties</a></li>
           </ul>
         </li>
 
@@ -166,9 +162,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="/new_department"><i class="fa fa-circle-o"></i> Add Departmet</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> View Departments</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Edit Departmet</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Delete Departmet</a></li>
+            <li><a href="/view_departments"><i class="fa fa-circle-o"></i> View Departments</a></li>
           </ul>
         </li>
         
@@ -181,8 +175,6 @@
           <ul class="treeview-menu">
             <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Add Course</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> View Courses</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Update Course Details</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Delete Course</a></li>
           </ul>
         </li>
         
@@ -195,8 +187,6 @@
           <ul class="treeview-menu">
             <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Add User</a></li>
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> View Users</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Edit User</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Delete User</a></li>
           </ul>
         </li>
         
@@ -243,30 +233,40 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th></th>
                   <th>Falculty Name</th>
                   <th>Code</th>
                   <th>Description</th>
                   <th>Email</th>
                   <th>Telephone</th>
+                  <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                <% var count = 1%>
+                <% for (var row in faculties){ %>
                 <tr>
-                  <td>Education</td>
-                  <td>01 </td>
-                  <td>Education Segment</td>
-                  <td> education@nkhoma.ac.mw</td>
-                  <td>01 256 124</td>
+                  <td style="font-weight: bold;"><%= count %>.</td>
+                  <td><%= faculties[row].faculty_name %> </td>
+                  <td><%= faculties[row].faculty_shortname %> </td>
+                  <td><%= faculties[row].faculty_description %></td>
+                  <td><%= faculties[row].faculty_email %></td>
+                  <td><%= faculties[row].telephone %></td>
+                  <td><a href="/edit_this_faculty?faculty_id=<%= faculties[row].faculty_id %>"><i class="fa fa-pencil"></i></a></td>
                 </tr>
+                <% count = count + 1 %>
+                <% } %>
                 
                 </tbody>
                 <tfoot>
                 <tr>
+                  <th></th>
                   <th>Falculty Name</th>
                   <th>Code</th>
                   <th>Description</th>
                   <th>Email</th>
                   <th>Telephone</th>
+                  <th></th>
                 </tr>
                 </tfoot>
               </table>
