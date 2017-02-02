@@ -155,7 +155,7 @@ router.post('/faculty/save_edited', function (req, res, next) {
         telephone: telephone
         })
             .then(function (faculties) {
-                res.redirect("/view_falculties?faculty_id=" + faculty_id);
+                res.redirect("/view_falculties");
             });
 });
 
@@ -177,6 +177,13 @@ router.get('/edit_this_faculty', function(req, res, next) {
 
   });
 
+});
+
+router.post('/void_faculty', function (req, res, next) {
+    news_ids = req.body.news_ids.split(",");
+    knex('faculties').where('faculty_id', 'in', news_ids).del().then(function (news) {
+        res.send('okay');
+    });
 });
 
 
