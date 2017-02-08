@@ -48,8 +48,6 @@ router.post('/student/add', function (req, res, next) {
 
     var phone = params.phone;
 
-    var whatsapp = params.whatsapp;
-
     var gender = params.gender;
 
     var homevillage = params.homevillage;
@@ -68,38 +66,27 @@ router.post('/student/add', function (req, res, next) {
 
     var level = params.level;
 
-    var religion_church = params.religion_church;
+    
 
-    var marital_status = params.marital_status
-
-    var current_employer = params.current_employer;
-
-    var place_of_work = params.place_of_work;
-
-    var guardian = params.guardian;
-
-    var guardian_phone = params.guardian_phone;
-
-    var postal_address = params.postal_address;
-
-    console.log(postal_address);
+    console.log(f_name);
 
     new Student({
-      rego: 1,
+      
       first_name: f_name,
       last_name: s_name,
       middle_name: m_name,
-      marital_status: marital_status,
-      religion: religion_church,
       village: homevillage,
       ta: ta,
       district_id: 1,
       nationalty_id: 1,
       gender: gender,
       enrollment_year: 2003,
-      programme_code: MAT,
-      programme: Mathematical,
-      year_of_study: 2
+      programme_code: "MAT",
+      year_of_study: 2,
+      programme: 1,
+      student_type: "Parallel",
+      dob: new Date('01-02-2013'),
+      title: "Mr"
         
     }).save().then(function (students) {
 
@@ -112,7 +99,7 @@ router.post('/student/add', function (req, res, next) {
 
 router.get('/new_falculty', function(req, res, next) {
 
-  res.render('./faculty/new_falculty', { title: 'SIMS | Add Falculty' });
+  res.render('./faculty/new_falculty', { title: 'SIMS | Add Faculty' });
 
 });
 
@@ -159,11 +146,26 @@ router.post('/faculty/save_edited', function (req, res, next) {
             });
 });
 
+router.get('/delete_falculty', function(req, res, next) {
+
+  knex('faculties').then(function(faculties){
+    res.render('./faculty/delete_falculty', { title: 'SIMS | Delete Faculty' , faculties: faculties} );
+
+  });
+});
+
+router.post('/void_faculty', function (req, res, next) {
+    faculty_ids = req.body.faculty_ids.split(",");
+    knex('faculties').where('faculty_id', 'in', faculty_ids).del().then(function (faculties) {
+        res.send('okay');
+    });
+});
+
 router.get('/view_falculties', function(req, res, next) {
 
   knex('faculties').then(function(faculties){
 
-    res.render('./faculty/view_falculties', { title: 'SIMS | View Falculties', faculties: faculties  } );
+    res.render('./faculty/view_falculties', { title: 'SIMS | View Faculties', faculties: faculties  } );
 
   });
 
@@ -177,13 +179,6 @@ router.get('/edit_this_faculty', function(req, res, next) {
 
   });
 
-});
-
-router.post('/void_faculty', function (req, res, next) {
-    news_ids = req.body.news_ids.split(",");
-    knex('faculties').where('faculty_id', 'in', news_ids).del().then(function (news) {
-        res.send('okay');
-    });
 });
 
 

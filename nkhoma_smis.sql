@@ -215,7 +215,7 @@ CREATE TABLE `students` (
   PRIMARY KEY (`rego`),
   KEY `NationalityID` (`nationalty_id`),
   KEY `programme` (`programme`),
-  CONSTRAINT `students_ibfk_2` FOREIGN KEY (`programme`) REFERENCES `programmes` (`programme_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `students_ibfk_2` FOREIGN KEY (`programme_id`) REFERENCES `programmes` (`programme_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 

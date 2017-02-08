@@ -239,37 +239,29 @@
                   <th>Description</th>
                   <th>Email</th>
                   <th>Telephone</th>
-                  <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <% var count = 1%>
                 <% for (var row in faculties){ %>
                 <tr>
-                  <td style="font-weight: bold;"><%= count %>.</td>
+                  <td><input type="checkbox" value="<%= faculties[row].faculty_id %>" name="faculty_ids[]"/></td>
                   <td><%= faculties[row].faculty_name %> </td>
                   <td><%= faculties[row].faculty_shortname %> </td>
                   <td><%= faculties[row].faculty_description %></td>
                   <td><%= faculties[row].faculty_email %></td>
                   <td><%= faculties[row].telephone %></td>
-                  <td><a href="/edit_this_faculty?faculty_id=<%= faculties[row].faculty_id %>"><i class="fa fa-pencil"></i></a></td>
-                  
+                 
                 </tr>
-                <% count = count + 1 %>
                 <% } %>
                 
                 </tbody>
+
                 <tfoot>
-                <tr>
-                  <th></th>
-                  <th>Falculty Name</th>
-                  <th>Code</th>
-                  <th>Description</th>
-                  <th>Email</th>
-                  <th>Telephone</th>
-                  <th></th>
-                </tr>
-                </tfoot>
+                        <tr>
+                            <td colspan="4"><a href="#myModal" role="button" data-toggle="modal" class="btn btn-danger">Delete Selected <i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+                    </tfoot>
+                
               </table>
 
             <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -354,16 +346,17 @@
 <script type="text/javascript">
 
                                     function deleteSelectedItems() {
-                                        var newsIds = [];
-                                        $('input[name="news_ids[]"]:checked').each(function () {
-                                            newsIds.push(this.value);
+                                    
+                                        var facultyIds = [];
+                                        $('input[name="faculty_ids[]"]:checked').each(function () {
+                                            facultyIds.push(this.value);
                                         });
-                                        console.log(newsIds);
-                                        if (newsIds.length > 0) {
+                                        console.log(facultyIds);
+                                        if (facultyIds.length > 0) {
                                             jQuery.ajax({
                                                 type: "POST",
                                                 url: "/void_faculty",
-                                                data: "news_ids=" + newsIds,
+                                                data: "faculty_ids=" + facultyIds,
                                                 success: function () {
                                                     window.location = location.href;
                                                 }
