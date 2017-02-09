@@ -22,6 +22,7 @@ Campus = model.Campus;
 Course = model.Courses;
 Programme = model.Programmes;
 Student = model.Students;
+District = model.Districts
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,7 +30,22 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/new_student', function(req, res, next) {
-  res.render('./student/new_student', { title: 'SIMS | Register Student' });
+  
+  new Programme().fetchAll().then(function(programmes) {
+    new District().fetchAll().then(function(districts){
+
+      res.render('./student/new_student', { title: 'SIMS | Register Student' , programmes: programmes.toJSON(), districts: districts.toJSON()});
+
+    }).catch(function(error) {
+
+      console.log(error);
+
+      res.send('An error occured');
+
+    });
+
+  });
+
 });
 
 router.get('/view_students', function(req, res, next) {
@@ -66,6 +82,12 @@ router.post('/student/add', function (req, res, next) {
 
     var level = params.level;
 
+    var year_of_study = params.year_of_study;
+
+    var student_type = params.student_type;
+
+    var title = params.title;
+
     
 
     console.log(f_name);
@@ -82,11 +104,11 @@ router.post('/student/add', function (req, res, next) {
       gender: gender,
       enrollment_year: 2003,
       programme_code: "MAT",
-      year_of_study: 2,
-      programme_id: 1,
-      student_type: "Parallel",
+      year_of_study: year_of_study,
+      programme_id: programme,
+      student_type: student_type,
       dob: new Date('01-02-2013'),
-      title: "Mr"
+      title: title
         
     }).save().then(function (students) {
 

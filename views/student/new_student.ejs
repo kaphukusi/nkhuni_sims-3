@@ -8,7 +8,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-  
+
   <!-- jvectormap -->
   <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 
@@ -294,10 +294,22 @@
 
                 <div class="form-group">
 
+                  <label for=" " class="col-sm-2 control-label">Title</label>
+                  <div class="col-sm-5">
+                    <input type="radio" name="title" value="Mr"> Mr &nbsp;
+                    <input type="radio" name="title" value="Miss"> Miss &nbsp;
+                    <input type="radio" name="title" value="Miss"> Mrs &nbsp;
+                    <input type="radio" name="title" value="Miss"> Dr &nbsp;
+                    <input type="radio" name="title" value="Miss"> Prof &nbsp;
+                  </div>
+                </div>
+
+                <div class="form-group">
+
                   <label for=" " class="col-sm-2 control-label">Gender</label>
                   <div class="col-sm-2">
                     <select name="gender">
-                      <option value="" selected>select</option>
+                      <option value="" selected>....</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
@@ -323,11 +335,47 @@
                 </div>
 
                 <div class="form-group">
-
-                  <label for=" " class="col-sm-2 control-label">Programme</label>
+                  <label for="faculty" class="col-sm-2 control-label">Programme</label>
 
                   <div class="col-sm-5">
-                    <input type="text" name="programme" class="form-control" placeholder="Programme being registered for">
+                      <select name="programme" id="programme">
+
+                          <option value="" selected>....</option>
+
+                            <% programmes.forEach(function(programme) { %>
+
+
+                                            <option value="<%= programme.programme_id %>"><%= programme.programme_name %></option>
+
+                              <% }); %>
+                        
+                      </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+
+                  <label for=" " class="col-sm-2 control-label">Year of study</label>
+                  <div class="col-sm-2">
+                    <select name="year_of_study">
+                      <option value="" selected>....</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+
+                  <label for=" " class="col-sm-2 control-label">Student type</label>
+                  <div class="col-sm-2">
+                    <select name="student_type">
+                      <option value="" selected>....</option>
+                      <option value="Generic"> Generic </option>
+                      <option value="Parallel"> Parallel </option>
+                    </select>
                   </div>
                 </div>
 
@@ -349,13 +397,25 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for=" " class="col-sm-2 control-label">District</label>
 
-                  <div class="col-sm-2">
-                    <input type="text" name="district" class="form-control" placeholder="District">
+                <div class="form-group">
+                  <label for="faculty" class="col-sm-2 control-label">District</label>
+
+                  <div class="col-sm-5">
+                      <select name="district" id="district">
+
+                          <option value="" selected>....</option>
+
+                            <% districts.forEach(function(district) { %>
+
+
+                                            <option value="<%= district.district_id %>"><%= district.district_name %></option>
+
+                              <% }); %>
+                        
+                      </select>
                   </div>
-                </div>        
+                </div>
 
               </div>
               <!-- /.box-body -->
@@ -381,7 +441,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2016 <a href="http://almsaeedstudio.com">Nkhoma University</a>.</strong> All rights
+    <strong>Copyright &copy; 2016 <a href="http://www.nkhoma.ac.mw">Nkhoma University</a>.</strong> All rights
     reserved.
   </footer>
 
