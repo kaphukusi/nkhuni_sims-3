@@ -83,7 +83,7 @@ router.post('/student/add', function (req, res, next) {
       enrollment_year: 2003,
       programme_code: "MAT",
       year_of_study: 2,
-      programme: 1,
+      programme_id: 1,
       student_type: "Parallel",
       dob: new Date('01-02-2013'),
       title: "Mr"
@@ -110,7 +110,7 @@ router.post('/faculty/add',function(req,res,next){
     var code = params.code;
     var description = params.description;
     var email = params.email;
-    var telephone = params.telephone;
+    var telephone = params.phone;
 
     new Faculty({
         campus_id: 1,
@@ -121,7 +121,7 @@ router.post('/faculty/add',function(req,res,next){
         telephone: telephone
     }).save().then(function (faculties) {
 
-       res.send("Faculty Added");
+       return res.redirect("/view_falculties");
 
     });
 });
@@ -323,7 +323,7 @@ router.post('/course/add',function(req,res,next){
 
 });
 
-router.get("/programme/new",function(req,res,next){
+router.get("/new_programme",function(req,res,next){
 
       new Faculty().fetchAll().then(function(faculties) {
 
@@ -350,8 +350,6 @@ router.post('/programme/add',function(req,res,next){
 
     var code = params.code;
 
-    var level = params.level;
-
     var type_of_award = params.type_of_award;
 
     var name_of_award = params.name_of_award;
@@ -362,29 +360,24 @@ router.post('/programme/add',function(req,res,next){
 
     var faculty = params.faculty;
 
-    var pogramme  = {
+    new Programme({
 
-                  faculty_id : faculty,
+        faculty_id: faculty,
 
-                  programme_code : code,
+        programme_code: code,
 
-                  programme_name : name,
+        programme_name: name,
 
-                  programme_type_of_award : type_of_award,
+        programme_type_of_award: type_of_award,
 
-                  programme_level : level,
+        programme_name_of_award: name_of_award,
 
-                  programme_name_of_award : name_of_award,
+        programme_years_of_study : years_of_study,
 
-                  programme_years_of_study : years_of_study,
+        programme_description : description,
 
-                  programme_description : description ,
-
-                  campus_id : 1
-
-    }
-
-    new Programme(programme).save().then(function(object){
+        
+    }).save().then(function(programmes){
 
           res.send("Programme successfully Added");
 

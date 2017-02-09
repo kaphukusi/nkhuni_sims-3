@@ -5,6 +5,8 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP DATABASE IF EXISTS `nkhoma_smis`;
+
 CREATE DATABASE `nkhoma_smis` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `nkhoma_smis`;
 
@@ -210,11 +212,10 @@ CREATE TABLE `students` (
   `enrollment_year` varchar(10) NOT NULL,
   `student_type` varchar(45) NOT NULL,
   `programme_code` varchar(10) NOT NULL,
-  `programme` int(10) NOT NULL,
+  `programme_id` int(10) NOT NULL,
   `year_of_study` tinyint(1) NOT NULL,
   PRIMARY KEY (`rego`),
   KEY `NationalityID` (`nationalty_id`),
-  KEY `programme` (`programme`),
   CONSTRAINT `students_ibfk_2` FOREIGN KEY (`programme_id`) REFERENCES `programmes` (`programme_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
