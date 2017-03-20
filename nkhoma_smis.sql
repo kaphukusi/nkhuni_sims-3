@@ -194,7 +194,7 @@ CREATE TABLE `programme_courses` (
 
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE `students` (
-  `rego` varchar(20) NOT NULL,
+  `regno` varchar(20) NOT NULL,
   `title` varchar(30) NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `middle_name` varchar(30) DEFAULT NULL,
@@ -211,10 +211,9 @@ CREATE TABLE `students` (
   `gender` varchar(10) NOT NULL,
   `enrollment_year` varchar(10) NOT NULL,
   `student_type` varchar(45) NOT NULL,
-  `programme_code` varchar(10) NOT NULL,
   `programme_id` int(10) NOT NULL,
   `year_of_study` tinyint(1) NOT NULL,
-  PRIMARY KEY (`rego`),
+  PRIMARY KEY (`regno`),
   KEY `NationalityID` (`nationalty_id`),
   CONSTRAINT `students_ibfk_2` FOREIGN KEY (`programme_id`) REFERENCES `programmes` (`programme_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -230,9 +229,9 @@ CREATE TABLE `students_contact_details` (
   `secondary_postal_ddress` varchar(100) DEFAULT NULL,
   `secondary_phone_number` varchar(20) DEFAULT NULL,
   `secondary_email_address` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`reg_no`),
+  PRIMARY KEY (`contact_id`),
   KEY `auto_incr` (`contact_id`),
-  CONSTRAINT `students_contact_details_ibfk_2` FOREIGN KEY (`reg_no`) REFERENCES `students` (`rego`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `students_contact_details_ibfk_2` FOREIGN KEY (`reg_no`) REFERENCES `students` (`regno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -255,7 +254,7 @@ CREATE TABLE `student_courses` (
   `grade_edit_status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`student_course_id`),
   KEY `RegistrationNumber` (`reg_no`),
-  CONSTRAINT `student_courses_ibfk_2` FOREIGN KEY (`reg_no`) REFERENCES `students` (`rego`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `student_courses_ibfk_2` FOREIGN KEY (`reg_no`) REFERENCES `students` (`regno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -266,7 +265,7 @@ CREATE TABLE `student_images` (
   `image_url` varchar(300) NOT NULL,
   PRIMARY KEY (`student_image_id`),
   KEY `reg_no` (`reg_no`),
-  CONSTRAINT `student_images_ibfk_2` FOREIGN KEY (`reg_no`) REFERENCES `students` (`rego`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `student_images_ibfk_2` FOREIGN KEY (`reg_no`) REFERENCES `students` (`regno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -283,7 +282,7 @@ CREATE TABLE `users` (
   `DOB` int(11) DEFAULT NULL,
   KEY `reg_no` (`reg_no`),
   KEY `user_type_id` (`user_type_id`),
-  CONSTRAINT `users_ibfk_4` FOREIGN KEY (`reg_no`) REFERENCES `students` (`rego`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `users_ibfk_4` FOREIGN KEY (`reg_no`) REFERENCES `students` (`regno`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_5` FOREIGN KEY (`user_type_id`) REFERENCES `user_types` (`user_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

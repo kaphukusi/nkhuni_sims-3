@@ -8,11 +8,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- jvectormap -->
+  
   <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 
   <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker-bs3.css">
@@ -156,8 +152,7 @@
           <ul class="treeview-menu">
             <li><a href="/new_student"><i class="fa fa-circle-o"></i> Register Student</a></li>
             <li><a href="/view_students"><i class="fa fa-circle-o"></i> View Students</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Update Student Information</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Remove Student</a></li>
+            <li><a href="/delete_student"><i class="fa fa-circle-o"></i> Remove Student</a></li>
           </ul>
         </li>
 
@@ -169,8 +164,7 @@
           <ul class="treeview-menu">
             <li><a href="/new_falculty"><i class="fa fa-circle-o"></i> Add Faculty</a></li>
             <li><a href="/view_falculties"><i class="fa fa-circle-o"></i> View Faculties</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Edit Faculties</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Delete Faculties</a></li>
+            <li><a href="/delete_falculty"><i class="fa fa-circle-o"></i> Delete Faculties</a></li>
           </ul>
         </li>
 
@@ -183,8 +177,20 @@
           <ul class="treeview-menu">
             <li><a href="/new_department"><i class="fa fa-circle-o"></i> Add Departmet</a></li>
             <li><a href="/view_departments"><i class="fa fa-circle-o"></i> View Departments</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Edit Departmet</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Delete Departmet</a></li>
+            <li><a href="/delete_department"><i class="fa fa-circle-o"></i> Delete Departmet</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Programmes</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/new_programme"><i class="fa fa-circle-o"></i> Add Programme</a></li>
+            <li><a href="/view_programmes"><i class="fa fa-circle-o"></i> View Programmes</a></li>
+            <li><a href="/delete_programme"><i class="fa fa-circle-o"></i> Delete Programme</a></li>
           </ul>
         </li>
         
@@ -195,10 +201,9 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Add Course</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> View Courses</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Update Course Details</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Delete Course</a></li>
+            <li><a href="/add_course"><i class="fa fa-circle-o"></i> Add Course</a></li>
+            <li><a href="/view_courses"><i class="fa fa-circle-o"></i> View Courses</a></li>
+            <li><a href="/delete_course"><i class="fa fa-circle-o"></i> Delete Course</a></li>
           </ul>
         </li>
         
@@ -209,10 +214,9 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Add User</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> View Users</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Edit User</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Delete User</a></li>
+            <li><a href="/new_user"><i class="fa fa-circle-o"></i> Add User</a></li>
+            <li><a href="/view_users"><i class="fa fa-circle-o"></i> View Users</a></li>
+            <li><a href="/delete_user"><i class="fa fa-circle-o"></i> Delete User</a></li>
           </ul>
         </li>
         
@@ -238,7 +242,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add Department
+        Add Course
       </h1>
       
     </section>

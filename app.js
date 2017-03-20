@@ -21,6 +21,32 @@ var model = require('./models/db_model');
 
 var app = express();
 
+passport.use(new LocalStrategy(function(username, password, done) {
+   new model.Users({user_name: username}).fetch().then(function(data) {
+      var user = data;
+      if(user === null) {
+         return done(null, false, {message: 'Invalid username or password'});
+      } else {
+         user = data.toJSON();
+         if(!user.password) {
+            return done(null, false, {message: 'Invalid username or password'});
+         } else {
+            return done(null, user);
+         }
+      }
+   });
+}));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.user_name);
+});
+
+passport.deserializeUser(function(username, done) {
+   new model.Users({user_name: username}).fetch().then(function(user) {
+      done(null, user);
+   });
+});
+
 // view engine setup
 app.engine('.html', require('ejs').__express);
 
@@ -44,7 +70,20 @@ app.use(passport.session());
 app.use(busboy()); 
 
 app.use('/', routes);
+app.use('/sign_in', routes);
+app.use('/signin', routes);
+app.use('/add_user_menu', routes);
+app.use('/add_user', routes);
+app.use('/sign_out', routes);
+app.use('/view_user_menu', routes);
+app.use('/view_users', routes);
+app.use('/edit_this_user', routes);
+app.use('/save_edited_user', routes);
+app.use('/reset_password_view', routes);
+app.use('/reset_password', routes);
+
 app.use('/users', users);
+app.use('/users/process_authentication', users);
 
 /* views */
 app.use('/new_department', routes);

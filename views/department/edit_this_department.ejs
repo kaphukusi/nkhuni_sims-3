@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Nkhoma University | Admin</title>
+  <title> <%= title %> </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -153,8 +153,7 @@
           <ul class="treeview-menu">
             <li><a href="/new_student"><i class="fa fa-circle-o"></i> Register Student</a></li>
             <li><a href="/view_students"><i class="fa fa-circle-o"></i> View Students</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Update Student Information</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Remove Student</a></li>
+            <li><a href="/delete_student"><i class="fa fa-circle-o"></i> Remove Student</a></li>
           </ul>
         </li>
 
@@ -166,8 +165,7 @@
           <ul class="treeview-menu">
             <li><a href="/new_falculty"><i class="fa fa-circle-o"></i> Add Faculty</a></li>
             <li><a href="/view_falculties"><i class="fa fa-circle-o"></i> View Faculties</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Edit Faculties</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Delete Faculties</a></li>
+            <li><a href="/delete_falculty"><i class="fa fa-circle-o"></i> Delete Faculties</a></li>
           </ul>
         </li>
 
@@ -180,8 +178,20 @@
           <ul class="treeview-menu">
             <li><a href="/new_department"><i class="fa fa-circle-o"></i> Add Departmet</a></li>
             <li><a href="/view_departments"><i class="fa fa-circle-o"></i> View Departments</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Edit Departmet</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Delete Departmet</a></li>
+            <li><a href="/delete_department"><i class="fa fa-circle-o"></i> Delete Departmet</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Programmes</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/new_programme"><i class="fa fa-circle-o"></i> Add Programme</a></li>
+            <li><a href="/view_programmes"><i class="fa fa-circle-o"></i> View Programmes</a></li>
+            <li><a href="/delete_programme"><i class="fa fa-circle-o"></i> Delete Programme</a></li>
           </ul>
         </li>
         
@@ -192,10 +202,9 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Add Course</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> View Courses</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Update Course Details</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Delete Course</a></li>
+            <li><a href="/add_course"><i class="fa fa-circle-o"></i> Add Course</a></li>
+            <li><a href="/view_courses"><i class="fa fa-circle-o"></i> View Courses</a></li>
+            <li><a href="/delete_course"><i class="fa fa-circle-o"></i> Delete Course</a></li>
           </ul>
         </li>
         
@@ -206,10 +215,9 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Add User</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> View Users</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Edit User</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Delete User</a></li>
+            <li><a href="/new_user"><i class="fa fa-circle-o"></i> Add User</a></li>
+            <li><a href="/view_users"><i class="fa fa-circle-o"></i> View Users</a></li>
+            <li><a href="/delete_user"><i class="fa fa-circle-o"></i> Delete User</a></li>
           </ul>
         </li>
         
@@ -235,7 +243,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add Department
+       Edit Department
       </h1>
       
     </section>
@@ -255,20 +263,20 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" action="/department/add" method="POST" >
+            <form class="form-horizontal" action="/department/save_edited" method="POST" >
               <div class="box-body">
                 <div class="form-group">
                   <label for="" class="col-sm-2 control-label">Name</label>
 
                   <div class="col-sm-5">
-                    <input type="text" name="name" class="form-control"  placeholder="Department Name">
+                    <input type="text" name="name" class="form-control" value="<%= this_department.department_name %>">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="" class="col-sm-2 control-label">Code</label>
 
                   <div class="col-sm-5">
-                    <input type="text" name="code" class="form-control"  placeholder="Department code">
+                    <input type="text" name="code" class="form-control" value="<%= this_department.department_code %>">
                   </div>
                 </div>
 
@@ -276,7 +284,7 @@
                   <label for="description" class="col-sm-2 control-label">Description</label>
 
                   <div class="col-sm-5">
-                    <input type="text" name="description" class="form-control"  placeholder="Department Description">
+                    <input type="text" name="description" class="form-control" value="<%= this_department.department_description %>">
                   </div>
                 </div>
 
@@ -288,7 +296,7 @@
 
                             <% faculties.forEach(function(faculty) { %>
 
-                                            <option value="<%= faculty.faculty_id %>"><%= faculty.faculty_name %></option>
+                                  <option value="<%= faculty.faculty_id %>"><%= faculty.faculty_name %></option>
 
                               <% }); %>
                         
@@ -300,7 +308,7 @@
                   <label for="email" class="col-sm-2 control-label">Email</label>
 
                   <div class="col-sm-5">
-                    <input type="email" name="email" class="form-control"  placeholder="Department Email">
+                    <input type="email" name="email" class="form-control"  value="<%= this_department.department_email %>">
                   </div>
                 </div>
 
@@ -308,9 +316,11 @@
                   <label for="telephone" class="col-sm-2 control-label">Telephone</label>
 
                   <div class="col-sm-5">
-                    <input type="text" name="telephone" class="form-control"  placeholder="telephone">
+                    <input type="text" name="telephone" class="form-control" value="<%= this_department.telephone %>">
                   </div>
                 </div>
+
+                <input type="hidden" value="<%= this_department.department_id %>" name="department_id">
                 
               </div>
               <!-- /.box-body -->

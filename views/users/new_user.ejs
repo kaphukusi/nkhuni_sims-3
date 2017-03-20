@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Nkhoma University | Admin</title>
+  <title><%= title %></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -206,7 +206,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Add User</a></li>
+            <li><a href="/new_user"><i class="fa fa-circle-o"></i> Add User</a></li>
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> View Users</a></li>
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Edit User</a></li>
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Delete User</a></li>
@@ -235,7 +235,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add Department
+        Add User
       </h1>
       
     </section>
@@ -255,40 +255,52 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" action="/department/add" method="POST" >
+            <form class="form-horizontal" action="/users/add" method="POST" >
               <div class="box-body">
                 <div class="form-group">
-                  <label for="" class="col-sm-2 control-label">Name</label>
+                <% if(typeof(errorMessage) !== 'undefined') {%>
+                            <span><%= errorMessage %></span>
+                            <% } %>
+                  <label for="" class="col-sm-2 control-label">Username</label>
 
                   <div class="col-sm-5">
-                    <input type="text" name="name" class="form-control"  placeholder="Department Name">
+                    <input type="text" name="username" class="form-control"  placeholder="Username">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="" class="col-sm-2 control-label">Code</label>
+                  <label for="" class="col-sm-2 control-label">Password</label>
 
                   <div class="col-sm-5">
-                    <input type="text" name="code" class="form-control"  placeholder="Department code">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="description" class="col-sm-2 control-label">Description</label>
-
-                  <div class="col-sm-5">
-                    <input type="text" name="description" class="form-control"  placeholder="Department Description">
+                    <input type="password" name="password" class="form-control"  placeholder="Password">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="faculty" class="col-sm-2 control-label">Faculty</label>
+                  <label for="" class="col-sm-2 control-label">Confirm Password</label>
 
                   <div class="col-sm-5">
-                      <select name="faculty" id="faculty">
+                    <input type="password" name="confirm_password" class="form-control"  placeholder="Confirm Password">
+                  </div>
+                </div>
 
-                            <% faculties.forEach(function(faculty) { %>
+                <div class="form-group">
+                  <label for="description" class="col-sm-2 control-label">Full Name</label>
 
-                                            <option value="<%= faculty.faculty_id %>"><%= faculty.faculty_name %></option>
+                  <div class="col-sm-5">
+                    <input type="text" name="full_name" class="form-control"  placeholder="Full Name">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="faculty" class="col-sm-2 control-label">Designation</label>
+
+                  <div class="col-sm-5">
+                      <select name="user_type_id">
+
+                            <% user_types.forEach(function(user_type) { %>
+
+                                            <option value="<%= user_type.user_type_id %>"><%= user_type.user_type %></option>
+
 
                               <% }); %>
                         
@@ -300,19 +312,14 @@
                   <label for="email" class="col-sm-2 control-label">Email</label>
 
                   <div class="col-sm-5">
-                    <input type="email" name="email" class="form-control"  placeholder="Department Email">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="telephone" class="col-sm-2 control-label">Telephone</label>
-
-                  <div class="col-sm-5">
-                    <input type="text" name="telephone" class="form-control"  placeholder="telephone">
+                    <input type="email" name="email" class="form-control"  placeholder="Email">
                   </div>
                 </div>
                 
               </div>
+
+
+
               <!-- /.box-body -->
               <div class="box-footer">
                 <button onclick="window.location.href='/'" class="btn btn-default">Cancel</button>
