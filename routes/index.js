@@ -256,6 +256,26 @@ router.get('/view_programmes_assign_courses', function(req, res, next) {
 
 });
 
+router.get('/assign_courses_to_programme', function(req, res, next) {
+
+  new Faculty().fetchAll().then(function(faculties) {
+
+  var faculties = faculties.toJSON();
+
+  knex('programmes').where({programme_id: req.query.programme_id}).limit(1).then(function(this_programme){
+    
+    knex('courses').then(function(courses){
+
+    res.render('./dean/assign_courses_to_programme', { title: 'SIMS | Assign Courses', this_programme: this_programme[0], courses: courses} );
+
+  });
+
+  });
+
+})
+
+});
+
 router.get('/edit_this_department', function(req, res, next) {
 
   new Faculty().fetchAll().then(function(faculties) {
