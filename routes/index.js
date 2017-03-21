@@ -240,6 +240,22 @@ router.get('/view_programmes', function(req, res, next) {
 
 });
 
+router.get('/view_programmes_assign_courses', function(req, res, next) {
+
+  //new Faculty().fetchAll().then(function(faculties) {
+
+  //var faculties = faculties.toJSON();
+
+  knex('programmes').then(function (programmes){
+
+  res.render('dean/view_programmes_assign_courses', { title: 'SIMS | View Programmes', programmes: programmes });
+
+  //console.log(departments);
+
+});
+
+});
+
 router.get('/edit_this_department', function(req, res, next) {
 
   new Faculty().fetchAll().then(function(faculties) {
@@ -339,6 +355,35 @@ router.get('/view_courses', function(req, res, next) {
   });
 
 });
+router.get('/view_departmental_courses', function(req, res, next) {
+
+  knex('courses').where({department_id: req.query.department_id}).then(function(courses){
+
+    res.render('./dean/view_departmental_courses', { title: 'SIMS | View Departmental Courses', courses: courses  } );
+
+  });
+
+});
+
+router.get('/view_departmental_courses_enter_grades', function(req, res, next) {
+
+  knex('courses').where({department_id: req.query.department_id}).then(function(courses){
+
+    res.render('./dean/view_departmental_courses_enter_grades', { title: 'SIMS | View Departmental Courses', courses: courses  } );
+
+  });
+
+});
+
+router.get('/enter_grades_for_this_course', function(req, res, next) {
+
+  knex('courses').where({course_id: req.query.course_id}).limit(1).then(function(this_course){
+
+    res.render('./dean/enter_grades_for_this_course', { title: 'SIMS | Enter Grades', this_course: this_course[0]  } );
+
+  });
+
+});
 
 router.get('/edit_this_course', function(req, res, next) {
 
@@ -349,6 +394,8 @@ router.get('/edit_this_course', function(req, res, next) {
   });
 
 });
+
+
 
 router.post('/course/add',function(req,res,next){
     var params = req.body;
@@ -485,7 +532,13 @@ router.post('/signin', function (req, res, next) {
 
               knex('users').where({user_name: username}).limit(1).then(function(user_type_id){
                 if (user_type_id[0].user_type_id == '001') {
-                  return res.render('./dean/index');
+                  knex('departments').where({faculty_id: 1}).then(function(departments){
+
+                  return res.render('./dean/dashboard', { title: 'SIMS | Dean', departments: departments  } );
+
+                });
+                
+
                 }
                 
               })

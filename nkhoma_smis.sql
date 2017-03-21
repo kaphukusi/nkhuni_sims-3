@@ -276,6 +276,7 @@ CREATE TABLE `users` (
   `full_name` varchar(28) CHARACTER SET utf8 DEFAULT NULL,
   `reg_no` varchar(20) DEFAULT NULL,
   `position` varchar(7) CHARACTER SET utf8 DEFAULT NULL,
+  `faculty` int(3) DEFAULT NULL,
   `email` int(11) DEFAULT NULL,
   `lastlogin` int(11) DEFAULT NULL,
   `user_type_id` int(3) unsigned zerofill DEFAULT NULL,
