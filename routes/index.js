@@ -29,8 +29,15 @@ Users = model.Users;
 User_types = model.User_types;
 
 /* GET home page. */
-router.get('/', loadUser, function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: 'SIMS | Admin Panel' });
+});
+
+router.get('/dashboard', function(req, res, next) {
+  knex('departments').where({faculty_id: 1}).then(function(departments){
+    res.render('./dean/dashboard', { title: 'SIMS | Dean Of Faculty', departments: departments });
+  })
+  
 });
 
 router.get('/new_student', function(req, res, next) {
@@ -274,6 +281,32 @@ router.get('/assign_courses_to_programme', function(req, res, next) {
 
 })
 
+});
+
+router.post('/save_assigned_courses', function (req, res, next) {
+    
+    var params = req.body;
+    var name = params.name;
+    var code = params.code;
+    var faculty = params.faculty
+    var description = params.description;
+    var email = params.email;
+    var telephone = params.telephone;
+
+    new Department({
+
+        faculty_id: faculty,
+        department_code: code,
+        department_name: name,
+        department_description: description,
+        department_email: email,
+        telephone: telephone
+        
+    }).save().then(function (faculties) {
+
+       res.redirect("/view_departments")
+
+    })
 });
 
 router.get('/edit_this_department', function(req, res, next) {
