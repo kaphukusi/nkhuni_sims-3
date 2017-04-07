@@ -121,7 +121,7 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="/">
+          <a href="/index">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           
@@ -253,6 +253,7 @@
                   <th>Description</th>
                   <th>Email</th>
                   <th>Telephone</th>
+                  <th>Faculty</th>
                   <th></th>
                 </tr>
                 </thead>
@@ -266,7 +267,8 @@
                   <td><%= departments[row].department_description %></td>
                   <td><%= departments[row].department_email %></td>
                   <td><%= departments[row].telephone %></td>
-                  <td><a href="/edit_this_department?department_id=<%= departments[row].department_id %>"><img src="images/edit.pnsg"></a></td>
+                  <td><%= departments[row].faculty_name %></td>
+                  <td><a href="/edit_this_department?department_id=<%= departments[row].department_id %>"><img src="dist/img/edit.jpeg" width="30px" class="img-circle" alt="Ico Image"></a></td>
                 </tr>
                 <% count = count + 1 %>
                 <% } %>
@@ -280,10 +282,14 @@
                   <th>Description</th>
                   <th>Email</th>
                   <th>Telephone</th>
+                  <th>Telephone</th>
                   <th></th>
                 </tr>
                 </tfoot>
               </table>
+              <tr>
+                <td colspan="4" align="right"><a href="/new_department" role="button" class="btn btn-success">Add New Department </a></td>
+              </tr>
             </div>
             <!-- /.box-body -->
           </div>

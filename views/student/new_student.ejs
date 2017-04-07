@@ -369,6 +369,18 @@
 
                 <div class="form-group">
 
+                  <label for=" " class="col-sm-2 control-label">Semester</label>
+                  <div class="col-sm-2">
+                    <select name="semester">
+                      <option value="" selected>....</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+
                   <label for=" " class="col-sm-2 control-label">Student type</label>
                   <div class="col-sm-2">
                     <select name="student_type">
@@ -388,43 +400,7 @@
 
                 </div>
 
-                <hr>
-
-                <div class="form-group">
-                  <label for=" " class="col-sm-2 control-label">Home village</label>
-
-                  <div class="col-sm-5">
-                    <input type="text" name="homevillage" class="form-control" placeholder="Student’s home village">
-                  </div>
-
-                </div>
-
-                <div class="form-group">
-                  <label for=" " class="col-sm-2 control-label">T/A</label>
-                  <div class="col-sm-2">
-                    <input type="text" name="ta" class="form-control" placeholder="Traditional Authority">
-                  </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label for="faculty" class="col-sm-2 control-label">District</label>
-
-                  <div class="col-sm-5">
-                      <select name="district" id="district">
-
-                          <option value="" selected>....</option>
-
-                            <% districts.forEach(function(district) { %>
-
-
-                                            <option value="<%= district.district_id %>"><%= district.district_name %></option>
-
-                              <% }); %>
-                        
-                      </select>
-                  </div>
-                </div>
+                <br>
 
               </div>
               <!-- /.box-body -->
@@ -436,6 +412,8 @@
             </form>
           </div>
           <!-- /.box -->
+
+          <hr>
           
         </div>
         <!--/.col (right) -->
@@ -490,7 +468,7 @@
 <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="javascripts/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap color picker -->
 <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>

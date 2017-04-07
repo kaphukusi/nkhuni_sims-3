@@ -46,14 +46,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">User</span>
+              
+              <span class="hidden-xs">Full name</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+               
                 <p>
                  User - Role
                   
@@ -101,7 +100,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          
         </div>
         <div class="pull-left info">
           <p>User</p>
@@ -123,22 +122,20 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="/">
+          <a href="/index">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-files-o"></i>
             <span>Students</span>
-            <span class="label label-primary pull-right">4</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/new_student"><i class="fa fa-circle-o"></i> Register Student</a></li>
-            <li><a href="/view_students"><i class="fa fa-circle-o"></i> View Students</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Update Student Information</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Remove Student</a></li>
+            <li><a href="/new_student"> Register Student</a></li>
+            <li><a href="/view_students"> View Students</a></li>
+            <li><a href="pages/layout/fixed.html"> Update Student Information</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"> Remove Student</a></li>
           </ul>
         </li>
 
@@ -246,6 +243,7 @@
                   <th>Programme</th>
                   <th>Student Type</th>
                   <th>Year of Study</th>
+                  <th>Semester</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -253,11 +251,12 @@
                 <% for (var row in students){ %>
                 <tr>
                   <td style="font-weight: bold;"><%= count %>.</td>
-                  <td><%= students[row].first_name %> <%= students[row].middle_name %> <%= students[row].last_name %> <%= students[row].maiden_name %></td>
+                  <td><%= students[row].first_name %> <%= students[row].last_name %> <%= students[row].middle_name %> <%= students[row].maiden_name %></td>
                   <td><%= students[row].regno %></td>
-                  <td><%= students[row].programme_id %></td>
+                  <td><%= students[row].programme_code %></td>
                   <td><%= students[row].student_type %></td>
                   <td><%= students[row].year_of_study %></td>
+                  <td><%= students[row].semester %></td>
                 </tr>
 
                 <% count = count + 1 %>
@@ -266,14 +265,19 @@
                 </tbody>
                 <tfoot>
                 <tr>
+                  <th></th>
                   <th>Student's Name</th>
                   <th>Registration Number</th>
                   <th>Programme</th>
-                  <th>Fee Balance</th>
-                  <th>Contact Number</th>
+                  <th>Student Type</th>
+                  <th>Year of Study</th>
+                  <th>Semester</th>
                 </tr>
                 </tfoot>
               </table>
+              <tr>
+                <td colspan="4" align="right"><a href="/new_student" role="button" class="btn btn-success">Register New Student </a></td>
+              </tr>
             </div>
             <!-- /.box-body -->
           </div>

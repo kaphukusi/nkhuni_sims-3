@@ -46,8 +46,8 @@ var Students = bookshelf.Model.extend({
 });
 
 var Student_courses = bookshelf.Model.extend({
-   tableName: 'students',
-   idAttribute: 'rego'
+   tableName: 'student_courses',
+   idAttribute: 'student_course_id'
 });
 
 var Student_images = bookshelf.Model.extend({

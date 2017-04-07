@@ -181,14 +181,14 @@ CREATE TABLE `programme_courses` (
   `programme_id` int(10) NOT NULL,
   `programme_code` varchar(100) DEFAULT NULL,
   `course_code` varchar(15) NOT NULL,
-  `course_version` year(4) NOT NULL,
+  `course_name` varchar(150) NOT NULL,
   `course_type` varchar(20) NOT NULL DEFAULT 'Core',
+  `academic_year` varchar(10) NOT NULL,
   `study_year` tinyint(1) NOT NULL,
   `semester` tinyint(1) NOT NULL,
   `equivalent_course` text,
   PRIMARY KEY (`programme_id`,`course_code`),
-  KEY `fk_ccode_idx` (`course_code`),
-  KEY `fk_course_v_idx` (`course_version`)
+  KEY `fk_ccode_idx` (`course_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -213,6 +213,7 @@ CREATE TABLE `students` (
   `student_type` varchar(45) NOT NULL,
   `programme_id` int(10) NOT NULL,
   `year_of_study` tinyint(1) NOT NULL,
+  `semester` tinyint(1) NOT NULL,
   PRIMARY KEY (`regno`),
   KEY `NationalityID` (`nationalty_id`),
   CONSTRAINT `students_ibfk_2` FOREIGN KEY (`programme_id`) REFERENCES `programmes` (`programme_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -248,9 +249,7 @@ CREATE TABLE `student_courses` (
   `credit_hours` varchar(20) DEFAULT NULL,
   `continous_assessment_grade` double DEFAULT NULL,
   `end_of_semester_grade` double DEFAULT NULL,
-  `course_final_grade` tinyint(3) DEFAULT NULL,
-  `course_letter_grade` varchar(2) DEFAULT NULL,
-  `gpa` double(3,2) DEFAULT NULL,
+  `course_final_grade ` tinyint(3) DEFAULT NULL,
   `grade_edit_status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`student_course_id`),
   KEY `RegistrationNumber` (`reg_no`),
@@ -300,10 +299,11 @@ CREATE TABLE `user_types` (
 INSERT INTO `user_types` (`user_type_id`, `user_type`, `description`) VALUES
 (001,	'Administrator',	'System Administrator - Controls and Accesses everything'),
 (002,	'Vice Chancellor',	'University Vice Chancellor'),
-(003,	'Deputy Vice Chancellor',	'University Deputy Vice Chancellor'),
-(004,	'Registrar',	'University Registrar'),
+(003,	'Registrar',  'University Registrar'),
+(004,	'Faculty Dean',	'University Faculty Dean'),
 (005,	'Assistant Registrar',	'University Assistant Registrar'),
-(006,	'Finance Officer',	'Financial Officer - Incharge of any monitory issues (debts)'),
-(007,	'Data Entry',	'Data Entry Clerk - Responsible for data entry');
+(006,	'Finance Officer',	'Finance Officer - Incharge of any monitory issues (debts)'),
+(007,	'Data Entry',	'Data Entry Clerk - Responsible for data entry'),
+(008, 'Student', 'University Student');
 
 -- 2016-08-18 03:52:19

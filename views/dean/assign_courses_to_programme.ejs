@@ -278,11 +278,11 @@
                 <div class="form-group">
                     <div class="col-sm-2" align="right"> <%= this_programme.programme_code %> </div>
                     <div class="col-sm-2" align="right">  
-                    <select name="Aacademic_year">
+                    <select name="academic_year">
 
                                   <option value="">....</option>
-                                  <option value="1">2016/2017</option>
-                                  <option value="2">2017/2018</option>
+                                  <option value="1">2017</option>
+                                  <option value="2">2018</option>
                       
                       </select>  
                     </div>                                      
@@ -308,7 +308,7 @@
                     <div class="col-sm-4" align="left"> 
                     <% for (var row in courses){ %>
                       <tr>
-                        <td><input type="checkbox" value="<%= courses[row].course_code %>" name="course_codes[]"/></td>
+                        <td><input type="checkbox" value="<%= courses[row].course_code %>" name="course_codes"/></td>
                         <td><%= courses[row].course_name %> </td> <br>
                         
                         
@@ -323,7 +323,8 @@
                 
 
 
-                <input type="hidden" value="" name="department_id">
+                <input type="hidden" value="<%= this_programme.programme_code %>" name="programme_code">
+                <input type="hidden" value="<%= this_programme.programme_id %>" name="programme_id">
                 
               </div>
               <!-- /.box-body -->
@@ -389,7 +390,7 @@
 <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="javascripts/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap color picker -->
 <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>

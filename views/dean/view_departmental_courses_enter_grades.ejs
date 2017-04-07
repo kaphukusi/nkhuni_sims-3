@@ -233,7 +233,7 @@
                   <td><%= courses[row].department_id %></td>
                   <td><%= courses[row].course_year_offered %></td>
                   <td><%= courses[row].course_semester %></td>
-                  <td><a href="/enter_grades_for_this_course?course_id=<%= courses[row].course_id %>"><img src="dist/img/enter.jpg" width="30px" class="img-circle" alt="Ico Image"> </a></td>
+                  <td><a href="/enter_grades_for_this_course?course_code=<%= courses[row].course_code %>"><img src="dist/img/enter.jpg" width="30px" class="img-circle" alt="Ico Image"> </a></td>
                   
                 </tr>
                 <% count = count + 1 %>

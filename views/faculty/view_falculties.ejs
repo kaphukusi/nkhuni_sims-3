@@ -125,8 +125,8 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="/">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+          <a href="/index">
+            <span>Dashboard</span> 
           </a>
           
         </li>
@@ -251,7 +251,7 @@
                   <td><%= faculties[row].faculty_description %></td>
                   <td><%= faculties[row].faculty_email %></td>
                   <td><%= faculties[row].telephone %></td>
-                  <td><a href="/edit_this_faculty?faculty_id=<%= faculties[row].faculty_id %>"><i class="fa fa-pencil"></i></a></td>
+                  <td><a href="/edit_this_faculty?faculty_id=<%= faculties[row].faculty_id %>"><img src="dist/img/edit.jpeg" width="30px" class="img-circle" alt="Ico Image"></a></td>
                   
                 </tr>
                 <% count = count + 1 %>
@@ -270,6 +270,11 @@
                 </tr>
                 </tfoot>
               </table>
+              <tfoot>
+                  <tr>
+                    <td colspan="4" align="right"><a href="/new_falculty" role="button" class="btn btn-success">Add New Faculty </a></td>
+                  </tr>
+                </tfoot>
 
             <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">

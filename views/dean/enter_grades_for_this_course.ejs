@@ -128,9 +128,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-files-o"></i>
             <span>Students</span>
-            <span class="label label-primary pull-right">4</span>
           </a>
           <ul class="treeview-menu">
             <li><a href="/new_student"><i class="fa fa-circle-o"></i> Register Student</a></li>
@@ -225,7 +223,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       <%= this_course.course_code %>  <%= this_course.course_name %>: Enter Grades
+       <%= student.course_code %>  <%= students.course_name %>: Enter Grades
       </h1>
       
     </section>
@@ -246,34 +244,39 @@
             <!-- /.box-header -->
 
 
-            <form class="form-horizontal" method="POST" action="/courses/save_edited">
+            <form class="form-horizontal" method="POST" action="/dean/save_grades">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th></th>
                   <th>Student Reg No</th>
                   <th>Full name</th>
-                  <th>Continuous Grade</th>
-                  <th>End Semester Grade</th>
-                  <th>Aggregate</th>
-                  <th></th>
+                  <th>Year of Study</th>
+                  <th>Final Aggregate Grade</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% var count = 1%>
-                
+                <% for (var row in students){ %>
                 <tr>
                   <td style="font-weight: bold;"><%= count %>.</td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
                   
+                  <td> <input type="hidden" name="regno" value="<%= students[row].regno %>"> <%= students[row].regno %> </td>
+                  
+                  <td> <input type="hidden" name="name" value="<%= students[row].first_name %> <%= students[row].middle_name %> <%= students[row].last_name %> <%= students[row].maiden_name %>"> <%= students[row].first_name %> <%= students[row].middle_name %> <%= students[row].last_name %> <%= students[row].maiden_name %> </td>
+
+                  <td><input type="hidden" name="year_of_study" value="<%= students[row].year_of_study %>"><%= students[row].year_of_study %></td>
+                  
+                  <td> <input type="text" name="course_final_grade"> </td>
+
                 </tr>
+                <input type="hidden" name="programme_id" value="<%= students[row].programme_id %>">
+                
                 <% count = count + 1 %>
-               
+                <% } %>
+                
+                <input type="hidden" name="semester" value="<%= student.semester %>">
+                <input type="hidden" name="course_code" value="<%= student.course_code %>">
                 
                 </tbody>
                 <tfoot>
@@ -281,13 +284,17 @@
                   <th></th>
                   <th>Student Reg No</th>
                   <th>Full name</th>
-                  <th>Continuous Grade</th>
-                  <th>End Semester Grade</th>
+                  <th>Year of Study</th>
                   <th>Aggregate</th>
-                  <th></th>
                 </tr>
                 </tfoot>
               </table>
+
+              <div class="box-footer">
+                <button onclick="window.location.href='/'" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+              </div>
+
             </form>
 
 
@@ -297,6 +304,8 @@
 
           
           </div>
+
+
           <!-- /.box -->
           
         </div>
@@ -347,7 +356,7 @@
 <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="javascripts/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap color picker -->
 <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
