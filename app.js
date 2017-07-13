@@ -63,10 +63,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser());
-app.use(session({secret: 'secret strategic xxzzz code'}));
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(busboy()); 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.use('/', routes);
 app.use('/sign_in', routes);

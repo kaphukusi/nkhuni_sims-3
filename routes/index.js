@@ -6,6 +6,9 @@ var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var loadUser = require('../force_login');
 
+var session = require('express-session');
+var app = express();
+
 
 var busboy = require('connect-busboy');
 var fs = require('fs'); //image uploading
@@ -31,20 +34,31 @@ Student_course = model.Student_courses;
 Student_image = model.Student_images;
 
 /* GET home page. */
+
+var sess;
+
 router.get('/', loadUser, function(req, res, next) {
   res.render('/index');
 });
 
 router.get('/index', loadUser, function(req, res, next){
-  res.render('index', { title: 'SIMS | Administrator Panel' })
+
+      knex('students').select('faculty_name', 'faculties.faculty_id', 'regno').count("regno as student_count").leftJoin('programmes', 'students.programme_id', 'programmes.programme_id').leftJoin('faculties', 'programmes.faculty_id', 'faculties.faculty_id').groupBy('faculty_name').then(function(students){
+          console.log(students)
+          res.render('index', { title: 'SIMS | Administrator Panel', students: students })
+      
+        });
+  
 });
 
 router.get('/dashboard', loadUser, function(req, res, next) {
-  knex('departments').where({faculty_id: 1}).then(function(departments){
+  knex('departments').where({faculty_id: req.query.faculty_id}).then(function(departments){
     res.render('./dean/dashboard', { title: 'SIMS | Dean Of Faculty', departments: departments });
   })
   
 });
+
+/********************* STUDENTS METHODS AND VIEWS **************************************/
 
 router.get('/new_student', loadUser, function(req, res, next) {
   
@@ -72,6 +86,19 @@ router.get('/view_students', loadUser, function(req, res, next) {
 
   });
 
+});
+
+router.get('/view_faculty_students', loadUser, function(req, res, next) {
+  knex('students').select(['students.regno', 'students.first_name', 'students.middle_name', 'students.last_name', 'students.maiden_name', 'students.year_of_study', 'students.semester', 'students.student_type', 'programmes.programme_name', 'programmes.programme_code', 'faculties.faculty_id', 'faculties.faculty_name']).leftJoin('programmes', 'students.programme_id', 'programmes.programme_id').leftJoin('faculties', 'faculties.faculty_id', 'programmes.faculty_id').where({'faculties.faculty_id': req.query.faculty_id}).then(function(students){
+
+    res.render('./student/view_faculty_students', { title: 'SIMS | View Students', students: students, student: students[0]  } );
+
+  });
+
+});
+
+router.get('/students_menu', loadUser, function(req, res, next) {
+  res.render('./student/students_menu' , { title: 'SIMS | Students Menu' });
 });
 
 router.post('/student/add', loadUser, function (req, res, next) {
@@ -117,11 +144,12 @@ router.post('/student/add', loadUser, function (req, res, next) {
     }).then(function (student) {
       //console.log(student[0].rego)
       knex("users").insert({
-        full_name:  f_name,
-        user_name:  rego,
+        full_name: f_name,
+        user_name: rego,
         reg_no: rego,
-        password:   "student",
-        user_type_id:   008 
+        password: "iuser",
+        position: 'Student',
+        user_type_id: 008 
       }).then(function (user){
         console.log('user created')
       })
@@ -157,7 +185,7 @@ router.post('/upload', upload.single('file'), function(req, res, next){
                     return console.error(err);
                 } else {
                     console.log("success!")
-                    return res.redirect("/student");
+                    res.redirect("/student");
                 }
             }); //copies file
         }
@@ -168,7 +196,8 @@ router.post('/upload', upload.single('file'), function(req, res, next){
                     return console.error(err);
                 } else {
                     console.log("success!")
-                    return res.redirect("/student");
+
+                    res.redirect("/student?regno=" + regno);
                 }
             }); //copies file
         }
@@ -176,7 +205,39 @@ router.post('/upload', upload.single('file'), function(req, res, next){
 
 });
 
-//faculty actions
+router.get('/student', loadUser, function(req, res, next) {
+
+  knex('students').select(['students.regno', 'students.title', 'students.first_name', 'students.middle_name', 'students.last_name', 'maiden_name', 'students.religion', 'students.dob', 'students.village', 'students.ta', 'students.enrollment_year', 'students.student_type', 'students.year_of_study', 'students.semester', 'programmes.programme_name', 'districts.district_name', 'students_contact_details.primary_phone_number', 'students_contact_details.primary_postal_address', 'students_contact_details.primary_email_address', 'students_contact_details.secondary_phone_number', 'students_contact_details.secondary_email_address', 'students_contact_details.secondary_postal_ddress', 'student_images.image_url']).leftJoin('programmes', 'programmes.programme_id', 'students.programme_id').leftJoin('districts', 'districts.district_id', 'students.district_id').leftJoin('students_contact_details', 'students.regno', 'students_contact_details.reg_no').leftJoin('student_images', 'student_images.reg_no', 'students.regno').where({regno: sess.username}).then(function(student){
+    //console.log(student);
+    res.render('./student/index', {title: 'SIMS | Student Page', student: student[0], sess: sess });
+    });
+  
+});
+
+router.get('/view_results', loadUser, function(req, res, next) {
+
+  knex('student_courses').select(['student_courses.reg_no', 'student_courses.course_code', 'student_courses.course_final_grade', 'student_images.image_url', 'courses.course_name']).leftJoin('student_images', 'student_images.reg_no', 'student_courses.reg_no').leftJoin('courses', 'courses.course_code', 'student_courses.course_code').where({'student_courses.reg_no': req.query.regno}).then(function(results){
+  
+  res.render('./student/view_results', { title: 'SIMS | Student Results', results: results, result: results[0] });
+  })
+});
+
+router.get('/view_students_per_course', loadUser, function(req, res, next) {
+
+  var course_code = req.query.course_code;
+
+  knex('students').select(['students.regno', 'students.first_name', 'students.middle_name', 'students.last_name', 'students.maiden_name', 'students.year_of_study', 'students.semester', 'programme_courses.course_code']).leftJoin('programme_courses', 'students.programme_id', 'programme_courses.programme_id').whereRaw('students.year_of_study = programme_courses.study_year and students.semester = programme_courses.semester').where({'programme_courses.course_code': req.query.course_code}).then(function(students){
+    res.render('./student/view_students_per_course', { title: 'SIMS | Enter Grades', students: students, student: students[0] } );
+  });
+
+});
+
+
+/***************************** FACULTY ACTIONS *****************************************/
+
+router.get('/faculties_menu', loadUser, function(req, res, next) {
+  res.render('./faculty/faculties_menu' , { title: 'SIMS | Faculties Menu' });
+});
 
 router.get('/new_falculty', loadUser, function(req, res, next) {
 
@@ -264,6 +325,11 @@ router.get('/edit_this_faculty', loadUser, function(req, res, next) {
 
 });
 
+/**************************** DEPARTMENTS ACTIONS **********************************/
+
+router.get('/departments_menu', loadUser, function(req, res, next) {
+  res.render('department/departments_menu' , { title: 'SIMS | Departments Menu' });
+});
 
 router.get('/new_department', loadUser, function(req, res, next) {
 
@@ -289,91 +355,19 @@ router.get('/view_departments', loadUser, function(req, res, next) {
 
   res.render('./department/view_departments', { title: 'SIMS | View Departments', departments: departments });
 
-  //console.log(departments);
+  });
 
 });
 
-});
+router.get('/view_faculty_departments', loadUser, function(req, res, next) {
 
-router.get('/view_programmes', loadUser, function(req, res, next) {
+  knex('students').select('faculty_name', 'department_id', 'department_name', 'department_description', 'faculties.faculty_id', 'regno').count("regno as student_count").leftJoin('programmes', 'students.programme_id', 'programmes.programme_id').leftJoin('faculties', 'programmes.faculty_id', 'faculties.faculty_id').leftJoin('departments', 'departments.faculty_id', 'faculties.faculty_id').where({'departments.faculty_id': req.query.faculty_id}).groupBy('department_name').then(function(departments){
+    console.log(departments)
 
-  //new Faculty().fetchAll().then(function(faculties) {
-
-  //var faculties = faculties.toJSON();
-
-  knex('programmes').select(['programmes.programme_code', 'programmes.programme_name', 'programmes.programme_name_of_award', 'programmes.programme_years_of_study', 'programmes.programme_description', 'programmes.programme_id', 'faculties.faculty_name']).leftJoin('faculties', 'programmes.faculty_id', 'faculties.faculty_id').then(function (programmes){
-
-  res.render('programme/view_programmes', { title: 'SIMS | View Programmes', programmes: programmes });
-
-  //console.log(departments);
-
-});
-
-});
-
-router.get('/view_programmes_assign_courses', loadUser, function(req, res, next) {
-
-  //new Faculty().fetchAll().then(function(faculties) {
-
-  //var faculties = faculties.toJSON();
-
-  knex('programmes').then(function (programmes){
-
-  res.render('dean/view_programmes_assign_courses', { title: 'SIMS | View Programmes', programmes: programmes });
-
-  //console.log(departments);
-
-});
-
-});
-
-router.get('/assign_courses_to_programme', loadUser, function(req, res, next) {
-
-  new Faculty().fetchAll().then(function(faculties) {
-
-  var faculties = faculties.toJSON();
-
-  knex('programmes').where({programme_id: req.query.programme_id}).limit(1).then(function(this_programme){
-    
-    knex('courses').then(function(courses){
-
-    res.render('./dean/assign_courses_to_programme', { title: 'SIMS | Assign Courses', this_programme: this_programme[0], courses: courses} );
+    res.render('./department/view_faculty_departments', { title: 'SIMS | View Departments', departments: departments });
 
   });
 
-  });
-
-})
-
-});
-
-router.post('/save_assigned_courses', loadUser, function (req, res, next) {
-    
-    var params = req.body;
-    var programme_code = params.programme_code;
-    var programme_id = params.programme_id;
-    var academic_year = params.academic_year;
-    var year = params.year;
-    var semester = params.semester;
-    var course_codes = params.course_codes;
-
-    for (var i = 0; i < course_codes.length; i++) {
-
-      new Programme_course({
-        programme_id: programme_id,
-        programme_code: programme_code,
-        course_code: course_codes[i],
-        course_version: academic_year,
-        study_year: year,
-        semester: semester
-
-    }).save().then(function (programme_courses) {
-  
-    })
-
-    }
-    res.send("Okay")
-    
 });
 
 router.get('/edit_this_department', loadUser, function(req, res, next) {
@@ -409,32 +403,9 @@ router.post('/department/save_edited', loadUser, function (req, res, next) {
         department_email: email,
         telephone: telephone
 
-        })
-            .then(function (departments) {
-                res.redirect("/view_departments");
-            });
-});
-
-router.get('/student', loadUser, function(req, res, next) {
-  
-  res.render('./student/index', { title: 'SIMS | Home' });
-
-});
-
-router.get('/view_results', loadUser, function(req, res, next) {
-
-  knex('student_courses').where({reg_no: req.query.regno}).then(function(results){
-  
-  res.render('./student/view_results', { title: 'SIMS | Student Results', results: results });
-  })
-});
-
-router.get('/view_mycourses', loadUser, function(req, res, next) {
-
-  knex('programme_courses').select(['programme_courses.course_code', 'programme_courses.study_year', 'programme_courses.semester', 'students.regno']).leftJoin('students', 'students.programme_id', 'programme_courses.programme_id').where({regno: req.query.regno}).then(function(mycourses){
-    console.log(mycourses)
-  res.render('./student/view_mycourses', { title: 'SIMS | Student Courses', mycourses: mycourses });
-  })
+        }).then(function (departments) {
+          res.redirect("/view_departments");
+        });
 });
 
 router.post('/department/add', loadUser, function (req, res, next) {
@@ -442,7 +413,7 @@ router.post('/department/add', loadUser, function (req, res, next) {
     var params = req.body;
     var name = params.name;
     var code = params.code;
-    var faculty = params.faculty
+    var faculty = params.faculty;
     var description = params.description;
     var email = params.email;
     var telephone = params.telephone;
@@ -461,6 +432,109 @@ router.post('/department/add', loadUser, function (req, res, next) {
        res.redirect("/view_departments")
 
     })
+});
+
+/********************  PROGRAMMES ACTIONS   ************************************/
+
+router.get('/programmes_menu', loadUser, function(req, res, next) {
+  res.render('programme/programmes_menu' , { title: 'SIMS | Programmes Menu' });
+});
+
+router.get('/view_programmes', loadUser, function(req, res, next) {
+
+  knex('programmes').select(['programmes.programme_code', 'programmes.programme_name', 'programmes.programme_name_of_award', 'programmes.programme_years_of_study', 'programmes.programme_description', 'programmes.programme_id', 'faculties.faculty_name']).leftJoin('faculties', 'programmes.faculty_id', 'faculties.faculty_id').then(function (programmes){
+
+  res.render('programme/view_programmes', { title: 'SIMS | View Programmes', programmes: programmes });
+
+  });
+
+});
+
+router.get('/view_programmes_assign_courses', loadUser, function(req, res, next) {
+
+  knex('programmes').then(function (programmes){
+
+  res.render('dean/view_programmes_assign_courses', { title: 'SIMS | View Programmes', programmes: programmes });
+
+  });
+
+});
+
+router.get('/assign_courses_to_programme', loadUser, function(req, res, next) {
+
+  new Faculty().fetchAll().then(function(faculties) {
+
+  var faculties = faculties.toJSON();
+
+  knex('programmes').where({programme_id: req.query.programme_id}).limit(1).then(function(this_programme){
+    
+    knex('courses').then(function(courses){
+
+    res.render('./dean/assign_courses_to_programme', { title: 'SIMS | Assign Courses', this_programme: this_programme[0], courses: courses} );
+
+    });
+
+  });
+
+})
+
+});
+
+
+/**************** COURSES ACTIONS   *********************************************/
+
+router.get('/courses_menu', loadUser, function(req, res, next) {
+  res.render('courses/courses_menu' , { title: 'SIMS | Courses Menu' });
+});
+
+router.post('/save_assigned_courses', loadUser, function (req, res, next) {
+    
+    var params = req.body;
+    var programme_code = params.programme_code;
+    var programme_id = params.programme_id;
+    var academic_year = params.academic_year;
+    var year = params.year;
+    var semester = params.semester;
+    var course_codes = params.course_codes;
+
+    var course_code = params.course_codes;
+
+    console.log(course_codes.length);    
+
+    if (course_codes.length <= 1) {
+
+      new Programme_course({
+        programme_id: programme_id,
+        programme_code: programme_code,
+        course_code: course_code,
+        study_year: year,
+        semester: semester
+
+    }).save().then(function (programme_courses) {
+  
+    })
+    }
+
+    else{
+      for (var i = 0; i < course_codes.length; i++) {
+
+      new Programme_course({
+        programme_id: programme_id,
+        programme_code: programme_code,
+        course_code: course_codes[i],
+        study_year: year,
+        semester: semester
+
+      }).save().then(function (programme_courses) {
+  
+      })
+
+      }
+    }
+
+    
+    res.send("Okay")
+    
 });
 
 router.get('/add_course', loadUser, function(req, res, next) {
@@ -493,9 +567,9 @@ router.get('/view_courses', loadUser, function(req, res, next) {
 });
 router.get('/view_departmental_courses', loadUser, function(req, res, next) {
 
-  knex('courses').where({department_id: req.query.department_id}).then(function(courses){
+  knex('courses').select(['courses.course_name', 'courses.course_code', 'courses.course_id', 'courses.course_year_offered', 'courses.course_semester', 'departments.department_id', 'departments.department_name']).leftJoin('departments', 'departments.department_id', 'courses.department_id').where({'courses.department_id': req.query.department_id}).then(function(courses){
 
-    res.render('./dean/view_departmental_courses', { title: 'SIMS | View Departmental Courses', courses: courses  } );
+    res.render('./dean/view_departmental_courses', { title: 'SIMS | View Departmental Courses', courses: courses, course: courses[0] });
 
   });
 
@@ -521,17 +595,27 @@ router.get('/enter_grades_for_this_course', loadUser, function(req, res, next) {
 
 });
 
+router.get('/view_mycourses', loadUser, function(req, res, next) {
+
+  knex('programme_courses').select(['programme_courses.course_code', 'programme_courses.study_year', 'programme_courses.semester', 'students.regno', 'courses.course_name']).leftJoin('courses', 'courses.course_code', 'programme_courses.course_code').leftJoin('students', 'students.programme_id', 'programme_courses.programme_id').where({regno: req.query.regno}).then(function(mycourses){
+    //console.log(mycourses)
+  res.render('./student/view_mycourses', { title: 'SIMS | Student Courses', mycourses: mycourses, mycourse: mycourses[0] });
+  })
+});
+
+
+
 router.post('/dean/save_grades', loadUser, function (req, res, next) {
     
     var params = req.body;
-    //var academic_year = ;
     var semester = params.semester;
     var year_of_study = params.year_of_study;
     var reg_no = params.regno;
     var course_code = params.course_code;
     var course_final_grade = params.course_final_grade;
-    //var course_code = 
-    //var course_name = 
+
+    console.log(course_final_grade)
+    console.log(reg_no.length)
 
     for (var i = 0; i < reg_no.length; i++) {
 
@@ -544,11 +628,9 @@ router.post('/dean/save_grades', loadUser, function (req, res, next) {
         course_final_grade: course_final_grade[i]
         
       }).save().then(function (student_courses) {
-
+        res.send("Okay")
       })
     }
-    res.send("Okay")
-
     
 });
 
@@ -625,7 +707,7 @@ router.get("/new_programme", loadUser, function(req,res,next){
 
       var faculties = faculties.toJSON();
 
-      res.render('programme/view_programmes', { title: 'SIMS | View Programmes' , faculties: faculties});
+      res.render('./programme/new_programme', { title: 'SIMS | Add Programme' , faculties: faculties});
 
         }).catch(function(error) {
 
@@ -659,9 +741,19 @@ router.post('/programme/add', loadUser, function(req,res,next){
         programme_description: description,
 
     }).save().then(function(programmes){
-          res.send("Programme successfully Added");
+          res.redirect("/view_programmes");
     });
 
+});
+
+/******************** USERS ACTIONS  **************************/
+
+router.get('/users_menu', loadUser, function(req, res, next) {
+  res.render('users/users_menu' , { title: 'SIMS | Users Menu' });
+});
+
+router.get('/add_users_menu', loadUser, function(req, res, next) {
+  res.render('users/add_users_menu' , { title: 'SIMS | Add Users Menu' });
 });
 
 // sign in
@@ -678,8 +770,14 @@ router.get('/sign_in', function (req, res, next) {
 
 router.post('/signin', function (req, res, next) {
 
+    sess = req.session;
+
     var user = req.body;
     var username = user.username
+
+    sess.username=username;
+
+    //console.log(sess.username);
    
     passport.authenticate('local', {successRedirect: '/',
         failureRedirect: '/sign_in'}, function (err, user, info) {
@@ -728,10 +826,12 @@ router.post('/signin', function (req, res, next) {
                 }
 
                 else if (user_type_id[0].user_type_id == '008') {
-                  console.log(user_type_id[0]);
+                  //console.log(user_type_id[0]);
+                  sess.user_name = user_type_id[0].user_name;
+                  console.log(sess.user_name)
                   knex('students').select(['students.regno', 'students.title', 'students.first_name', 'students.middle_name', 'students.last_name', 'maiden_name', 'students.religion', 'students.dob', 'students.village', 'students.ta', 'students.enrollment_year', 'students.student_type', 'students.year_of_study', 'students.semester', 'programmes.programme_name', 'districts.district_name', 'students_contact_details.primary_phone_number', 'students_contact_details.primary_postal_address', 'students_contact_details.primary_email_address', 'students_contact_details.secondary_phone_number', 'students_contact_details.secondary_email_address', 'students_contact_details.secondary_postal_ddress', 'student_images.image_url']).leftJoin('programmes', 'programmes.programme_id', 'students.programme_id').leftJoin('districts', 'districts.district_id', 'students.district_id').leftJoin('students_contact_details', 'students.regno', 'students_contact_details.reg_no').leftJoin('student_images', 'student_images.reg_no', 'students.regno').where({regno: user_type_id[0].user_name}).then(function(student){
                     console.log(student);
-                  return res.render('./student/index', {title: 'SIMS | Student Page', student: student[0] });
+                  return res.render('./student/index', {title: 'SIMS | Student Page', student: student[0], sess: sess });
                   });
                 }
                 
@@ -781,6 +881,16 @@ router.get('/new_dean', loadUser, function(req, res, next) {
 
 });
 
+router.get('/view_users', loadUser, function(req, res, next) {
+
+  knex('users').then(function(users){
+
+    res.render('./users/view_users', { title: 'SIMS | View Users', users: users } );
+
+  });
+
+});
+
 router.post('/users/add_dean', loadUser, function (req, res, next) {
 
     var user = req.body;
@@ -807,13 +917,13 @@ router.post('/users/add_dean', loadUser, function (req, res, next) {
                 full_name:  user.full_name,
                 user_name:  user.username,
                 password:   user.password,
-                position:   'Faculty Dean',
+                position:   'Dean of Academics',
                 faculty:     user.faculty,
                 email:      user.email,
                 user_type_id:   004      
             }).save().then(function (user) {
                 // sign in the newly registered user
-                return res.render('users/new_dean');
+                res.redirect('/view_users');
             });
         }
     });

@@ -8,7 +8,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-
+  
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
   <!-- Theme style -->
@@ -22,8 +22,9 @@
 <div class="wrapper">
 
   <header class="main-header">
+
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>SI</b>MS</span>
       <!-- logo for regular state and mobile devices -->
@@ -41,6 +42,7 @@
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
                    
+          
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -50,8 +52,7 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+               
                 <p>
                  User - Role
                   
@@ -121,93 +122,85 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="/">
+          <a href="/index">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           
         </li>
         <li class="treeview">
           <a href="#">
-            
             <span>Students</span>
-            
           </a>
           <ul class="treeview-menu">
             <li><a href="/new_student"> Register Student</a></li>
             <li><a href="/view_students"> View Students</a></li>
-            <li><a href="/delete_student"> Remove Student</a></li>
+            <li><a href="pages/layout/fixed.html"> Update Student Information</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"> Remove Student</a></li>
           </ul>
         </li>
 
         <li class="treeview">
           <a href="#">
-             <span>Faculties</span>
-            
+            <i class="fa fa-edit"></i> <span>Faculties</span>
+            <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/new_falculty"> Add Faculty</a></li>
-            <li><a href="/view_falculties"> View Faculties</a></li>
-            <li><a href="/delete_falculty"> Delete Faculties</a></li>
+            <li><a href="/new_falculty"><i class="fa fa-circle-o"></i> Add Faculty</a></li>
+            <li><a href="/view_falculties"><i class="fa fa-circle-o"></i> View Faculties</a></li>
+            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Edit Faculties</a></li>
+            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Delete Faculties</a></li>
           </ul>
         </li>
 
         <li class="treeview">
           <a href="#">
-            
+            <i class="fa fa-laptop"></i>
             <span>Departmets</span>
-            
+            <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/new_department"> Add Departmet</a></li>
-            <li><a href="/view_departments"> View Departments</a></li>
-            <li><a href="/delete_department"> Delete Departmet</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            
-            <span>Programmes</span>
-            
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/new_programme"> Add Programme</a></li>
-            <li><a href="/view_programmes"> View Programmes</a></li>
-            <li><a href="/delete_programme"> Delete Programme</a></li>
+            <li><a href="/new_department"><i class="fa fa-circle-o"></i> Add Departmet</a></li>
+            <li><a href="/view_departments"><i class="fa fa-circle-o"></i> View Departments</a></li>
+            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Edit Departmet</a></li>
+            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Delete Departmet</a></li>
           </ul>
         </li>
         
         <li class="treeview">
           <a href="#">
-            
+            <i class="fa fa-pie-chart"></i>
             <span>Courses</span>
-            
+            <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/add_course"> Add Course</a></li>
-            <li><a href="/view_courses"> View Courses</a></li>
-            <li><a href="/delete_course"> Delete Course</a></li>
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Add Course</a></li>
+            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> View Courses</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Update Course Details</a></li>
+            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Delete Course</a></li>
           </ul>
         </li>
         
         
         <li class="treeview">
           <a href="#">
-            <span>Manage Users</span>
+            <i class="fa fa-table"></i> <span>Manage Users</span>
+            <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/new_user"> Add User</a></li>
-            <li><a href="/view_users"> View Users</a></li>
-            <li><a href="/delete_user"> Delete User</a></li>
+            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Add User</a></li>
+            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> View Users</a></li>
+            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Edit User</a></li>
+            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Delete User</a></li>
           </ul>
         </li>
         
         <li class="treeview">
           <a href="#">
-            <span>Account Settings</span>
+            <i class="fa fa-folder"></i> <span>Account Settings</span>
+            <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"> View Account Details</a></li>
+            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> View Account Details</a></li>
             
           </ul>
         </li>
@@ -223,7 +216,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        View Programmes
+        View Students
         <small> </small>
       </h1>
       
@@ -237,7 +230,7 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">A list of all Programmes</h3>
+              <h3 class="box-title">A list of all Students</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -245,45 +238,46 @@
                 <thead>
                 <tr>
                   <th></th>
-                  <th>Programme Name</th>
-                  <th>Code</th>
-                  <th>Name of Award</th>
-                  <th>Years of Study</th>
-                  <th>Programme Description</th>
-                  <th>Faculty</th>
-                  <th></th>
+                  <th>Student's Name</th>
+                  <th>Registration Number</th>
+                  <th>Programme</th>
+                  <th>Student Type</th>
+                  <th>Year of Study</th>
+                  <th>Semester</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% var count = 1%>
-                <% for (var row in programmes){ %>
+                <% for (var row in students){ %>
                 <tr>
                   <td style="font-weight: bold;"><%= count %>.</td>
-                  <td><%= programmes[row].programme_name %> </td>
-                  <td><%= programmes[row].programme_code %> </td>
-                  <td><%= programmes[row].programme_name_of_award %></td>
-                  <td><%= programmes[row].programme_years_of_study %></td>
-                  <td><%= programmes[row].programme_description %></td>
-                  <td><%= programmes[row].faculty_name %></td>
-                  <td><a href="/edit_this_programme?programme_id=<%= programmes[row].programme_id %>"><img src="dist/img/edit.jpeg" width="30px" class="img-circle" alt="Ico Image"></a></td>
+                  <td><%= students[row].first_name %> <%= students[row].last_name %> <%= students[row].middle_name %> <%= students[row].maiden_name %></td>
+                  <td><%= students[row].regno %></td>
+                  <td><%= students[row].programme_code %></td>
+                  <td><%= students[row].student_type %></td>
+                  <td><%= students[row].year_of_study %></td>
+                  <td><%= students[row].semester %></td>
                 </tr>
+
                 <% count = count + 1 %>
                 <% } %>
+                
                 </tbody>
                 <tfoot>
                 <tr>
                   <th></th>
-                  <th>Programme Name</th>
-              
-                  <th>Code</th>
-                  <th>Name of Award</th>
-                  <th>Years of Study</th>
-                  <th>Programme Description</th>
-                  <th>Faculty</th>
-                  <th></th>
+                  <th>Student's Name</th>
+                  <th>Registration Number</th>
+                  <th>Programme</th>
+                  <th>Student Type</th>
+                  <th>Year of Study</th>
+                  <th>Semester</th>
                 </tr>
                 </tfoot>
               </table>
+              <tr>
+                <td colspan="4" align="right"><a href="/new_student" role="button" class="btn btn-success">Register New Student </a></td>
+              </tr>
             </div>
             <!-- /.box-body -->
           </div>
@@ -302,10 +296,13 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2016 <a href="http://www.nkhoma.ac.mw">Nkhoma University</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="http://www.nkhoma.ac.mw">Nkhoma University</a>.</strong> All rights
     reserved.
   </footer>
 
+  <!-- Control Sidebar -->
+  
+  <!-- /.control-sidebar -->
   
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->

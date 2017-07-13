@@ -7,7 +7,8 @@ var bcrypt = require('bcrypt-nodejs');
 Users = model.Users;
 
 		var password = 'test';
-        //var hash = bcrypt.hashSync(password);
+    var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(password, salt);
 
         new Users({
               full_name: 'Administrator',

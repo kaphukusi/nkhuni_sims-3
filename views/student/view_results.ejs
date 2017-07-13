@@ -49,22 +49,20 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="">
+              <img src="/student_images/<%= result.image_url %>" class="user-image" alt="">
               <span class="hidden-xs">Full name  </span> 
               
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="/student_images/<%= result.image_url %>" class="img-circle" alt="User Image">
 
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">View Details</a>
-                  </div>
+                  
                   <div class="col-xs-4 text-center">
                     <a href="#">Change password</a>
                   </div>
@@ -99,12 +97,9 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="/student_images/<%= result.image_url %>" class="img-circle" alt="User Image">
         </div>
-        <div class="pull-left info">
-          <p>User</p>
-
-        </div>
+        
       </div>
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
@@ -121,28 +116,29 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="/student">
-            <span>Dashboard</span>
+          <a href="/student?regno=<%= result.reg_no %>">
+            <span>Dashboard</span> 
           </a>
           
         </li>
-        
-        <li>
-          <a href="/view_mycourses?regno=<%= results.regno %>">
-            <span>My Courses</span>
-            </a>
-        </li>
-        
+
         <li class="treeview">
           <a href="#">
             <span>Exam Results</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/view_results?regno=<%= results.regno %>"> Current Results</a></li>
-            <li><a href="/view_results?regno=<%= results.regno %>"> Previous Results</a></li>
+            <li><a href="/view_results?regno=<%= result.reg_no %>"> Current Results</a></li>
+            <li><a href="/view_results?regno=<%= result.reg_no %>">Previous Results</a></li>
             
           </ul>
         </li>
+        
+        <li>
+          <a href="/view_mycourses?regno=<%= result.reg_no %>">
+            <span>My Courses</span>
+            </a>
+        </li>
+        
         
       </ul>
     </section>
@@ -164,50 +160,62 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          
 
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">This is how you faired</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th></th>
-                  <th>Course Name</th>
-                  <th>Score</th>
-                  <th>Remark</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% var count = 1%>
-                <% for (var row in results){ %>
-                <tr>
-                  <td style="font-weight: bold;"><%= count %>.</td>
-                  <td><%= results[row].course_name %> </td>
-                  <td><%= results[row].course_final_grade %></td>
-                  <td> </td>
+
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#results" data-toggle="tab">Exam Results</a></li>
+              <li><a href="/view_mycourses?regno=<%= result.reg_no %>">My Courses</a></li>
+              <li><a href="/student">Return to Dashboard</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="results">
+                                
+                  <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">This is how you faired</h3>
+                    </div>
+            
+                    <div class="box-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                          <th></th>
+                          <th>Course Name</th>
+                          <th>Score</th>
+                          <th>Remark</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% var count = 1%>
+                        <% for (var row in results){ %>
+                        <tr>
+                          <td style="font-weight: bold;"><%= count %>.</td>
+                          <td><%= results[row].course_name %> </td>
+                          <td><%= results[row].course_final_grade %></td>
+                          <td> </td>
+                          
+                        </tr>
+                        <% count = count + 1 %>
+                        <% } %>
+                        
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                          <th></th>
+                          <th>Course Name</th>
+                          <th>Score</th>
+                          <th>Remark</th>
+                        </tr>
+                        </tfoot>
+                      </table>
                   
-                </tr>
-                <% count = count + 1 %>
-                <% } %>
-                
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th></th>
-                  <th>Course Name</th>
-                  <th>Score</th>
-                  <th>Remark</th>
-                </tr>
-                </tfoot>
-              </table>
+                    </div>
 
-          
-            <!-- /.box-body -->
-          </div>
+                </div>
+              
+            </div>
+          </div> 
           <!-- /.box -->
         </div>
         <!-- /.col -->

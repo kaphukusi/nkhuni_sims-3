@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Nkhoma University | Admin</title>
+  <title><%= title %></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.5 -->
@@ -34,7 +34,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="/" class="logo">
+    <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>SI</b>MS</span>
       <!-- logo for regular state and mobile devices -->
@@ -47,8 +47,6 @@
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-                   
           
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -195,7 +193,7 @@
                 <li><a href="/new_user"> Add Administrator</a></li>
                 <li><a href="/new_user"> Add Vice Chancellor</a></li>
                 <li><a href="/new_user"> Add Registrar</a></li>
-                <li><a href="/new_dean"> Add Faculty Dean</a></li>
+                <li><a href="/new_dean"> Add Faculty Dean of Academics</a></li>
                 <li><a href="/new_user"> Add Assistant Registrar</a></li>
                 <li><a href="/new_user"> Add Finance Officer</a></li>
                 <li><a href="/new_user"> Add Data Entry</a></li>
@@ -229,77 +227,162 @@
         Adminstration
         <small>Panel</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
+      
     </section>
 
     <!-- Main content -->
     <section class="content">
       <!-- Info boxes -->
       <div class="row">
+      
+      
+    
+      
+      <% for (var row in students){ %>
+        
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-aqua"></span>
+            <span class="info-box-icon bg-aqua"> <img src="dist/img/faculty.png" class="img-circle" alt="Ico Image"></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">TOTAL NUMBER OF STUDENTS</span>
-              <span class="info-box-number">90<small> </small></span>
+              <span class="info-box-text"> <a href="/view_faculty_departments?faculty_id=<%= students[row].faculty_id %>"> <%= students[row].faculty_name %> </a> </span>
+              
+              <span class="info-box-number"> &nbsp; <small> <a href="/view_faculty_students?faculty_id=<%= students[row].faculty_id %>"> <%= students[row].student_count %> </a> </small></span>
+             
             </div>
             <!-- /.info-box-content -->
           </div>
           <!-- /.info-box -->
         </div>
         <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"></span>
-            <a href="">
-            <div class="info-box-content">
-              <span class="info-box-text">EDUCATION</span>
-              <span class="info-box-number">41,410</span>
-            </div>
-            </a>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
+        </a>
+      <% } %>
 
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">COMMERCE</span>
-              <span class="info-box-number">760</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">THEOLOGY</span>
-              <span class="info-box-number">2,000</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
       </div>
       <!-- /.row -->
 
-      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="row">
+                
+                <a href="/students_menu">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon" style="background-color: white"> <img src="dist/img/ico_folder.png" class="img-circle" alt="Ico Image"></span>
+
+                    <div class="info-box-content">
+                      <span class=""> Students </span>
+                      <span class="info-box-number"> &nbsp; <small> </small></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                </a>
+
+                <a href="/faculties_menu">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon" style="background-color: white"> <img src="dist/img/ico_folder.png" class="img-circle" alt="Ico Image"></span>
+
+                    <div class="info-box-content">
+                      <span class=""> Faculties </span>
+                      <span class="info-box-number"> &nbsp; <small> </small></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                </a>
+
+                <a href="/departments_menu">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon" style="background-color: white"> <img src="dist/img/ico_folder.png" class="img-circle" alt="Ico Image"></span>
+
+                    <div class="info-box-content">
+                      <span class=""> Departments </span>
+                      <span class="info-box-number"> &nbsp; <small> </small></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                </a>
+
+                <a href="/programmes_menu">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon" style="background-color: white"> <img src="dist/img/ico_folder.png" class="img-circle" alt="Ico Image"></span>
+
+                    <div class="info-box-content">
+                      <span class=""> Programmes </span>
+                      <span class="info-box-number"> &nbsp; <small> </small></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                </a>
+                
+              </div>
+              <!-- /.row -->
+
+              <div class="row">
+                
+                <a href="courses_menu">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon" style="background-color: white"> <img src="dist/img/ico_folder.png" class="img-circle" alt="Ico Image"></span>
+
+                    <div class="info-box-content">
+                      <span class=""> Courses </span>
+                      <span class="info-box-number"> &nbsp; <small> </small></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                </a>
+
+                <a href="users_menu">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon" style="background-color: white"> <img src="dist/img/ico_folder.png" class="img-circle" alt="Ico Image"></span>
+
+                    <div class="info-box-content">
+                      <span class=""> Users </span>
+                      <span class="info-box-number"> &nbsp; <small> </small></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                </a>
+
+                
+              <!-- /.row -->
+
+            </div>
+            <!-- ./box-body -->
+
+          </div>
+          <!-- /.box -->          
+
+        </div>
+        <!-- /.col -->
+      </div>
+
     </section>
     <!-- /.content -->
   </div>

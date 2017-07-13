@@ -124,28 +124,29 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="/student">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+          <a href="/student?regno=<%= mycourse.regno %>">
+            <span>Dashboard</span> 
           </a>
           
         </li>
-        
-        <li>
-          <a href="/view_mycourses?regno=<%= mycourses.regno %>">
-            <i class="fa fa-th"></i> <span>My Courses</span>
-            </a>
-        </li>
-        
+
         <li class="treeview">
           <a href="#">
             <span>Exam Results</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/view_results?regno=<%= mycourses.regno %>"> Current Results</a></li>
-            <li><a href="/view_results?regno=<%= mycourses.regno %>"> Previous Results</a></li>
+            <li><a href="/view_results?regno=<%= mycourse.regno %>"> Current Results</a></li>
+            <li><a href="/view_results?regno=<%= mycourse.regno %>">Previous Results</a></li>
             
           </ul>
         </li>
+        
+        <li>
+          <a href="/view_mycourses?regno=<%= mycourse.regno %>">
+            <span>My Courses</span>
+            </a>
+        </li>
+        
         
       </ul>
     </section>
@@ -157,7 +158,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        View Courses
+        My Courses
         <small></small>
       </h1>
       
@@ -167,53 +168,64 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          
 
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">A list of all Courses</h3>
+
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#mycourses" data-toggle="tab">My Courses</a></li>
+              <li><a href="/view_results?regno=<%= mycourse.regno %>">Exam Results</a></li>
+              <li><a href="/student?regno=<%= mycourse.regno %>">Return to Dashboard</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="mycourses">
+                                
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">A list of all Courses for the Semester</h3>
+                  </div>
+            
+                  <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th></th>
+                        
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% var count = 1%>
+                      <% for (var row in mycourses){ %>
+                      <tr>
+                        <td style="font-weight: bold;"><%= count %>.</td>
+                       
+                        <td> <%= mycourses[row].course_code %> </td>
+                        <td> <%= mycourses[row].course_name %> </td>
+                      </tr>
+                      <% count = count + 1 %>
+                      <% } %>
+                      
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                        <th></th>
+                        
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                      </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+              
+              </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th></th>
-                  
-                  <th>Course Code</th>
-                  <th>Course Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% var count = 1%>
-                <% for (var row in mycourses){ %>
-                <tr>
-                  <td style="font-weight: bold;"><%= count %>.</td>
-                 
-                  <td><%= mycourses[row].course_code %> </td>
-                   <td> </td>
-                </tr>
-                <% count = count + 1 %>
-                <% } %>
-                
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th></th>
-                  
-                  <th>Course Code</th>
-                  <th>Course Name</th>
-                </tr>
-                </tfoot>
-              </table>
-
           
-            <!-- /.box-body -->
-          </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      </div>
+        </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->

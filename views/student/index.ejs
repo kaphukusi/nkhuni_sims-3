@@ -124,30 +124,29 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="index2.html">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+          <a href="/student?regno=<%= student.regno %>">
+            <span>Dashboard</span> 
           </a>
           
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <span>Exam Results</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/view_results?regno=<%= student.regno %>"> Current Results</a></li>
+            <li><a href="/view_results?regno=<%= student.regno %>">Previous Results</a></li>
+            
+          </ul>
         </li>
         
         <li>
           <a href="/view_mycourses?regno=<%= student.regno %>">
-            <i class="fa fa-th"></i> <span>My Courses</span>
+            <span>My Courses</span>
             </a>
         </li>
         
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>Exam Results</span>
-            <i class="fa fa-angle-left pull-right"></i>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/view_results?regno=<%= student.regno %>"> Current Results</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Previous Results</a></li>
-            
-          </ul>
-        </li>
         
       </ul>
     </section>
@@ -170,10 +169,12 @@
       <div class="row">
         <div class="col-md-3">
 
+
+
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="/student_images/<%= student.image_url %>" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="/student_images/<%= student.image_url %>" alt="Profile picture">
 
               <h3 class="profile-username text-center"> <%= student.first_name %> <%= student.middle_name %> <%= student.last_name %> <%= student.maiden_name %> </h3>
 
@@ -186,70 +187,38 @@
                 <li class="list-group-item">
                   <b>Year of study</b> <a class="pull-right"> <%= student.year_of_study %> </a>
                 </li>
-
                 
               </ul>
 
-             
-              
             </div>
              
-            <div class="box-body box-profile">
-            <form method="post" enctype="multipart/form-data" action="/upload">
-              <label for="fileInput" class="control-label">Upload Image &nbsp; &nbsp;</label>
-                <label class="btn btn-default btn-file">
-                  Browse <input type="file" name="file" style="display: none;" onchange="$('#upload-file-info').html($(this).val()); updateFileName($(this).val());">
-                </label>
-                <span class='label label-info' id="upload-file-info"></span>
-                <input type="hidden" name="file_name" value="" id="filename"/>
-                <input type="hidden" name="regno" value="<%= student.regno %>"/>
-                <br /> <br />
-
-                <button type="submit" class="btn btn-primary"> Save</button>
-                  <a href="/" class="btn btn-danger">Cancel</a>
-            </div><br />
-            </form>
-
-            
-
-            <!-- /.box-body -->
           </div>
           <!-- /.box -->
 
           <!-- About Me Box -->
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">About Me</h3>
-            </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
+            
 
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Home Village:</strong> &nbsp;&nbsp; <%= student.village %>
+              <div class="box-body box-profile">
+              <form method="post" enctype="multipart/form-data" action="/upload">
+                <label for="fileInput" class="control-label">Upload Image &nbsp; &nbsp;</label>
+                  <label class="btn btn-default btn-file">
+                    Browse <input type="file" name="file" style="display: none;" onchange="$('#upload-file-info').html($(this).val()); updateFileName($(this).val());">
+                  </label>
+                  <span class='label label-info' id="upload-file-info"></span>
+                  <input type="hidden" name="file_name" value="" id="filename"/>
+                  <input type="hidden" name="regno" value="<%= student.regno %>"/>
+                  <br /> <br />
 
-              <p class="text-muted"><strong>T/A:&nbsp;</strong> <%= student.ta %>, &nbsp;&nbsp;&nbsp;&nbsp; <strong>District:&nbsp;</strong> <%= student.district_name %></p>
-
-              <hr>
-
-              <strong><i class="fa fa-envelope margin-r-5"></i> Contact Address</strong>
-
-              <p class="text-muted">
-              <ul >
-                <%=student.primary_postal_address %> 
-              </ul>
-              </p>
-
-              <hr>
-
-              <strong><i class="fa fa-phone margin-r-5"></i> Contact Numbers</strong>
-
-              <p class="text-muted">
-              <ul>
-                <strong> Phone - Primary:</strong> <%= student.primary_phone_number %> <br>
-                <strong> Phone - Secondary</strong> <%= student.secondary_phone_number %>
-              </ul>
-              </p>
-
-              <hr>
+                  
+                  <a href="/student" class="btn btn-danger">Cancel</a>
+                  <button type="submit" class="btn btn-primary"> Save</button>
+              
+              </form>
+            </div><br />
 
               
             </div>
@@ -261,87 +230,68 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">Further details</a></li>
-              <li><a href="#timeline" data-toggle="tab">View Results</a></li>
-              <li><a href="#settings" data-toggle="tab">My Courses</a></li>
+              <li class="active"><a href="#activity" data-toggle="tab">Other details</a></li>
+              <li><a href="/view_results?regno=<%= student.regno %>">View Results</a></li>
+              <li><a href="/view_mycourses?regno=<%= student.regno %>">My Courses</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
-                <!-- Post -->
-                <div class="post">
-                  <div class="user-block">
-                    <ul class="list-group list-group-unbordered">
-                      <li class="list-group-item">
-                        <b>Date Registered</b> <a class="pull-right"><%= student.enrollment_year %></a>
-                      </li>
-                      <li class="list-group-item">
-                        <b>Religion/Church</b> <a class="pull-right"> <%= student.religion %> </a>
-                      </li>
                 
+                
+                <div class="box box-primary">
+                
+                  <!-- /.box-header -->
+                  <div class="box-body">
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Date Registered: </strong> &nbsp;&nbsp; <%= student.enrollment_year %>
+
+                    
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Home Village:</strong> &nbsp;&nbsp; <%= student.village %>
+
+                    <p class="text-muted"><strong> <i class="fa fa-map-marker margin-r-5"></i>T/A:&nbsp;</strong> <%= student.ta %></p>
+
+                    <p class="text-muted"> <i class="fa fa-map-marker margin-r-5"></i><strong>District:&nbsp;</strong> <%= student.district_name %></p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-envelope margin-r-5"></i> Contact Address</strong>
+
+                    <p class="text-muted">
+                    <ul >
+                      <%=student.primary_postal_address %> 
                     </ul>
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-phone margin-r-5"></i> Contact Numbers</strong>
+
+                    <p class="text-muted">
+                    <ul>
+                      <strong> Phone - Primary:</strong> <%= student.primary_phone_number %> <br>
+                      <strong> Phone - Secondary</strong> <%= student.secondary_phone_number %>
+                    </ul>
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Religion/Church: </strong> &nbsp;&nbsp; <%= student.religion %>
+
+                    
                   </div>
-                  <!-- /.user-block -->
-                  
+                  <!-- /.box-body -->
                 </div>
-                
-                 <!-- Post -->
-                
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Student’s guardian</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Home Village:</strong> &nbsp;&nbsp; Sochi
-
-              <p class="text-muted"><strong>T/A:&nbsp;</strong> Msakambewa, &nbsp;&nbsp;&nbsp;&nbsp; <strong>District:&nbsp;</strong> Dowa</p>
-
-              <hr>
-
-              <strong><i class="fa fa-envelope margin-r-5"></i> Contact Address</strong>
-
-              <p class="text-muted">
-              <ul >
-                C/O Mrs Jamali, Box 24, Dowa 
-              </ul>
-              </p>
-
-              <hr>
-
-              <strong><i class="fa fa-phone margin-r-5"></i> Contact Numbers</strong>
-
-              <p class="text-muted">
-              <ul>
-                <strong> Phone:</strong> 088 4 966 792 <br>
-                <strong> WhatsApp:</strong> 088 4 966 792
-              </ul>
-              </p>
-
-              <hr>
-
-              
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
+              <!-- /.box -->
+              </div>
 
                   
-          </div>
+            </div>
                 <!-- /.post -->
-    </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="timeline">
-                <!-- The timeline -->
-                
-              </div>
-              <!-- /.tab-pane -->
-
-              <div class="tab-pane" id="settings">
-                
-              </div>
-              <!-- /.tab-pane -->
+          </div>
+              
+              
             </div>
             <!-- /.tab-content -->
           </div>
