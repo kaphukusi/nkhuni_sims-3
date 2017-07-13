@@ -249,7 +249,7 @@ CREATE TABLE `student_courses` (
   `credit_hours` varchar(20) DEFAULT NULL,
   `continous_assessment_grade` double DEFAULT NULL,
   `end_of_semester_grade` double DEFAULT NULL,
-  `course_final_grade ` tinyint(3) DEFAULT NULL,
+  `course_final_grade` tinyint(3) DEFAULT NULL,
   `grade_edit_status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`student_course_id`),
   KEY `RegistrationNumber` (`reg_no`),
