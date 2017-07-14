@@ -242,9 +242,6 @@
               <h3 class="box-title">   </h3>
             </div>
             <!-- /.box-header -->
-
-
-            <form class="form-horizontal" method="POST" action="/dean/save_grades">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -267,7 +264,7 @@
 
                   <td><input type="hidden" name="year_of_study" value="<%= students[row].year_of_study %>"><%= students[row].year_of_study %></td>
                   
-                  <td> <input type="text" name="course_final_grade"> </td>
+                  <td> <input type="text" name="course_final_grade" onfocus="blue(this)" onblur="saveGrade('<%= student.course_code %>','2017','<%= students[row].year_of_study %>','<%= student.semester %>','<%= students[row].regno %>',this)"> </td>
 
                 </tr>
                 <input type="hidden" name="programme_id" value="<%= students[row].programme_id %>">
@@ -292,17 +289,10 @@
 
               <div class="box-footer">
                 <button onclick="window.location.href='/'" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-              </div>
-
-            </form>
-
-
-
-
-
-
-          
+                <button id ="download_csv" class="btn btn-default">Download CSV</button>
+                <button class="btn btn-default">Upload CSV</button>
+                <button onclick="window.location.href='/'" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Done</button>
+              </div>  
           </div>
 
 
@@ -343,22 +333,14 @@
 <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 <!-- SlimScroll 1.3.0 -->
 <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS 1.0.1 -->
-<script src="plugins/chartjs/Chart.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-
-<script src="plugins/select2/select2.full.min.js"></script>
 <!-- InputMask -->
 <script src="plugins/input-mask/jquery.inputmask.js"></script>
 <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- date-range-picker -->
 <script src="javascripts/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap color picker -->
 <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 <!-- iCheck 1.0.1 -->
 <script src="plugins/iCheck/icheck.min.js"></script>
@@ -366,66 +348,33 @@
 
 
 <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
+  function orange(element){
+      element.style.color = "orange"
+  }
+  function blue(element){
+      element.style.color = "blue"
+  }
+  function green(element){
+      element.style.color = "green"
+  }
+  function saveGrade(course_code,academic_year,year_of_study,semester,regno,element){
+    var url = "/dean/save_grades"
+    var data = {
+                  year_of_study: year_of_study,
+                  course_code : course_code,
+                  regno : regno ,
+                  course_final_grade: element.value,
+                  semester : semester,
+                  academic_year : academic_year
+                }
+    console.log(data);
+    $.post(url,data,function(data){
+       if(data){
+            green(element);
+       }
     });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
+  }
+ 
 </script>
 
 

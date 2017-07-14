@@ -608,29 +608,42 @@ router.get('/view_mycourses', loadUser, function(req, res, next) {
 router.post('/dean/save_grades', loadUser, function (req, res, next) {
     
     var params = req.body;
-    var semester = params.semester;
-    var year_of_study = params.year_of_study;
-    var reg_no = params.regno;
-    var course_code = params.course_code;
-    var course_final_grade = params.course_final_grade;
-
-    console.log(course_final_grade)
-    console.log(reg_no.length)
-
-    for (var i = 0; i < reg_no.length; i++) {
-
-      new Student_course({
-
-        semester: semester,
-        year_of_study: year_of_study[i],
-        reg_no: reg_no[i],
-        course_code: course_code,
-        course_final_grade: course_final_grade[i]
-        
-      }).save().then(function (student_courses) {
-        res.send("Okay")
-      })
+    
+    var data = {
+            semester : params.semester,
+            year_of_study : params.year_of_study,
+            academic_year : (params.academic_year? params.academic_year : (new Date().getFullYear())),
+            reg_no : params.regno,
+            course_code : params.course_code 
     }
+    knex('student_courses').where(data).limit(1).then(function(record){
+          if(record.length != 0 ){
+            //Update here
+            data.course_final_grade = params.course_final_grade
+            new Student_course({student_course_id :record[0].student_course_id}).save(data).then(function (student_courses) {
+                res.send(student_courses);
+            });
+          }else{
+            //Insert
+            data.course_final_grade = params.course_final_grade
+            new Student_course(data).save().then(function (student_courses) {
+                res.send(student_courses)
+            })
+          }
+      });
+    /*
+        new Course({course_id: course_id}).save({
+      course_name: course_name,
+      course_code: course_code,
+      department_id: department,
+      course_year_offered: year_offered,
+      course_semester: semester_offered,
+      course_lecture_hours: course_lecture_hours,
+      course_lab_hours: course_lab_hours
+    }).then(function(courses){
+      res.redirect("/view_courses");
+    });
+    */
     
 });
 
