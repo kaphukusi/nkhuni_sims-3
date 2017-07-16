@@ -27,6 +27,8 @@
     "passport-local": "*",
     "serve-favicon": "~2.3.0",
     "when": "^3.7.7",
-    "json2csv":"*"
+    "json2csv":"*",
+    "csv-parser" : "*",
+    "express-fileupload" : "*"
   }
 }

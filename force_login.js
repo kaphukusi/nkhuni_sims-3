@@ -6,7 +6,4 @@ module.exports = function loadUser(req, res, next) {
     } else {
         next();
     }
-
-
-
 }
