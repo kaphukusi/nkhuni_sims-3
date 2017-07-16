@@ -288,7 +288,7 @@
               </table>
 
               <div class="box-footer">
-                <button id ="download_csv" class="btn btn-default" onclick="window.location='/files/csvdownload?course_code=<%= student.course_code %>&academic_year=2017'">Download CSV Template</button>
+                <button id ="download_csv" class="btn btn-default" onclick="window.location='/files/csvdownload?course_code=<%= student.course_code %>&academic_year=2017&semester=<%= student.semester %>'">Download CSV Template</button>
                 <table class="pull-right">
                     <tr><form ref='uploadForm' id='uploadForm'  method="post" action="/files/csvupload" encType="multipart/form-data">
                           <td><input type="file" name="csv_results"></td>

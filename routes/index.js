@@ -38,7 +38,55 @@ Student_image = model.Student_images;
 var sess;
 
 router.get('/', loadUser, function(req, res, next) {
-  res.render('/index');
+    if (req.isAuthenticated() &&  sess.username){
+        var username = sess.username;
+        knex('users').where({user_name: username}).limit(1).then(function(user_type_id){
+                if (user_type_id[0].user_type_id == '001') {
+                  return res.redirect('/index');
+                }
+
+                else if (user_type_id[0].user_type_id == '002') {
+                  return res.redirect('/');
+                }
+
+                else if (user_type_id[0].user_type_id == '003') {
+                  return res.redirect('/');
+                }
+
+                else if (user_type_id[0].user_type_id == '004') {
+                  knex('departments').where({faculty_id: user_type_id[0].faculty}).then(function(departments){
+                    return res.render('./dean/dashboard', { title: 'SIMS | Dean of ', departments: departments  } );
+                  });
+                }
+
+                else if (user_type_id[0].user_type_id == '005') {
+                  return res.redirect('/');
+                }
+
+                else if (user_type_id[0].user_type_id == '006') {
+                  return res.redirect('/');
+                }
+
+                else if (user_type_id[0].user_type_id == '007') {
+                  return res.redirect('/');
+                }
+
+                else if (user_type_id[0].user_type_id == '008') {
+                  //console.log(user_type_id[0]);
+                  sess.user_name = user_type_id[0].user_name;
+                  console.log(sess.user_name)
+                  knex('students').select(['students.regno', 'students.title', 'students.first_name', 'students.middle_name', 'students.last_name', 'maiden_name', 'students.religion', 'students.dob', 'students.village', 'students.ta', 'students.enrollment_year', 'students.student_type', 'students.year_of_study', 'students.semester', 'programmes.programme_name', 'districts.district_name', 'students_contact_details.primary_phone_number', 'students_contact_details.primary_postal_address', 'students_contact_details.primary_email_address', 'students_contact_details.secondary_phone_number', 'students_contact_details.secondary_email_address', 'students_contact_details.secondary_postal_ddress', 'student_images.image_url']).leftJoin('programmes', 'programmes.programme_id', 'students.programme_id').leftJoin('districts', 'districts.district_id', 'students.district_id').leftJoin('students_contact_details', 'students.regno', 'students_contact_details.reg_no').leftJoin('student_images', 'student_images.reg_no', 'students.regno').where({regno: user_type_id[0].user_name}).then(function(student){
+                    console.log(student);
+                  return res.render('./student/index', {title: 'SIMS | Student Page', student: student[0], sess: sess });
+                  });
+                }
+                
+              })
+        }
+        else{
+            res.redirect('/sign_in');
+        }
+
 });
 
 router.get('/index', loadUser, function(req, res, next){
@@ -822,8 +870,8 @@ router.post('/signin', function (req, res, next) {
 
                 else if (user_type_id[0].user_type_id == '004') {
                   knex('departments').where({faculty_id: user_type_id[0].faculty}).then(function(departments){
-                  return res.render('./dean/dashboard', { title: 'SIMS | Dean of ', departments: departments  } );
-                });
+                    return res.render('./dean/dashboard', { title: 'SIMS | Dean of ', departments: departments  } );
+                  });
                 }
 
                 else if (user_type_id[0].user_type_id == '005') {

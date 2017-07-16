@@ -16,7 +16,7 @@ var multer  = require('multer');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var uploads_download = require('./routes/file_uploads_downloads');
+var uploads_download = require('./routes/files');
 
 var model = require('./models/db_model');
 
