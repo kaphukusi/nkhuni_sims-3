@@ -49,14 +49,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/student_images/<%= result.image_url %>" class="user-image" alt="">
+              
               <span class="hidden-xs">Full name  </span> 
               
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="/student_images/<%= result.image_url %>" class="img-circle" alt="User Image">
 
               </li>
               <!-- Menu Body -->
@@ -97,7 +96,6 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/student_images/<%= result.image_url %>" class="img-circle" alt="User Image">
         </div>
         
       </div>
@@ -150,7 +148,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Examination Results
+        Academic Transcript
         <small></small>
       </h1>
       
@@ -173,48 +171,75 @@
                                 
                   <div class="box">
                     <div class="box-header">
-                      <h3 class="box-title">This is how you faired</h3>
+                      <h3 class="box-title">   &nbsp;  </h3>
                     </div>
-            
-                    <div class="box-body">
-                      <table id="example1" class="table table-bordered table-striped">
-                        <thead>
+
+                  
+
+                    <table class="table table-bordered table-striped">
+                       
                         <tr>
-                          <th></th>
-                          <th>Course Name</th>
-                          <th>Score</th>
-                          <th>Remark</th>
+                          <th>Ref</th>
+                          <td colspan="3"><%= result.reg_no %> </td>
+
                         </tr>
-                        </thead>
+                        <tr>
+                          <th>To</th>
+                          <td colspan="3"><%= result.last_name %> &nbsp; <%=result.first_name%> &nbsp; <%=result.middle_name%></td>
+   
+                        </tr>
+                        <tr>
+                          <th>From</th>
+                          <td colspan="3">University Registrar</td>
+
+                        </tr>
+                        <tr>
+                          <th>Date</th>
+                          <td colspan="3">17th July, 2017</td>
+                         
+                        </tr>
+                        <tr>
+                          <th>Subject</th>
+                          <td colspan="3" style="font-weight: bold;"> End of Semester Academic Results</th>
+                        </tr>
+
+                        
                         <tbody>
-                        <% var count = 1%>
+
+                        <tr>
+                          <td colspan="4">
+                          <br>
+                            Senate, at its 92 nd Extraordinary Meeting held on 6 th , 7 th and 12 th February 2014 confirmed end of programme academic assessment results from Faculty of Information Science and Communications, and your academic performance was as follows: <br>
+                          </td>
+                        </tr>
+                        <br>
+                        <tr>
+                          
+                          <th> <i> Course Code </i></th>
+                          <th> <i> Course Title </i></th>
+                          <th> <i> Mark% </i></th>
+                          <th> <i> Remark </i></th>
+                        </tr>
+
+                       
                         <% for (var row in results){ %>
                         <tr>
-                          <td style="font-weight: bold;"><%= count %>.</td>
-                          <td><%= results[row].course_name %> </td>
-                          <td><%= results[row].course_final_grade %></td>
-                          <td> </td>
+                          <td style="font-weight: bold;"><%= results[row].course_code %></td>
+                          <td style="font-weight: bold;"><%= results[row].course_name %> </td>
+                          <td style="font-weight: bold;"><%= results[row].course_final_grade %></td>
+                          <td style="font-weight: bold;"> </td>
                           
                         </tr>
-                        <% count = count + 1 %>
+                        
                         <% } %>
                         
                         </tbody>
-                        <tfoot>
-                        <tr>
-                          <th></th>
-                          <th>Course Name</th>
-                          <th>Score</th>
-                          <th>Remark</th>
-
-                        </tr>
-
-                        </tfoot>
-
-
 
                       </table>
-                       <a href="/view_transcript?regno=<%= result.reg_no %>"> View Transcript </a>
+            
+                    <div class="box-body">
+                      
+                      <a href="wkhtmltopdf(null, 'http://google.com', 'google.pdf');"> Download </a>
                   
                     </div>
 

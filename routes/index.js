@@ -5,6 +5,7 @@ var knex = require('../config/bookshelf').knex;
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var loadUser = require('../force_login');
+var wkhtmltopdf = require('wkhtmltopdf');
 
 var session = require('express-session');
 var app = express();
@@ -219,6 +220,14 @@ router.get('/view_results', loadUser, function(req, res, next) {
   knex('student_courses').select(['student_courses.reg_no', 'student_courses.course_code', 'student_courses.course_final_grade', 'student_images.image_url', 'courses.course_name']).leftJoin('student_images', 'student_images.reg_no', 'student_courses.reg_no').leftJoin('courses', 'courses.course_code', 'student_courses.course_code').where({'student_courses.reg_no': req.query.regno}).then(function(results){
   
   res.render('./student/view_results', { title: 'SIMS | Student Results', results: results, result: results[0] });
+  })
+});
+
+router.get('/view_transcript', loadUser, function(req, res, next) {
+
+  knex('student_courses').select(['student_courses.reg_no', 'student_courses.course_code', 'student_courses.course_final_grade', 'student_images.image_url', 'courses.course_name', 'students.first_name', 'students.middle_name', 'students.last_name']).leftJoin('students', 'students.regno', 'student_courses.reg_no').leftJoin('student_images', 'student_images.reg_no', 'student_courses.reg_no').leftJoin('courses', 'courses.course_code', 'student_courses.course_code').where({'student_courses.reg_no': req.query.regno}).then(function(results){
+  
+  res.render('./reports/view_transcript', { title: 'SIMS | View Transcript', results: results, result: results[0] });
   })
 });
 
