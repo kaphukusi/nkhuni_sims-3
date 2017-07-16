@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bcrypt-nodejs": "*",
+    "bcrypt": "*",
     "body-parser": "~1.13.2",
     "bookshelf": "^0.8.2",
     "connect-busboy": "0.0.2",
@@ -29,6 +29,7 @@
     "when": "^3.7.7",
     "json2csv":"*",
     "csv-parser" : "*",
-    "express-fileupload" : "*"
+    "express-fileupload" : "*",
+    "password-hash" : "*"
   }
 }
