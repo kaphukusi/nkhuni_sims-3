@@ -6,7 +6,6 @@ var passport = require('passport');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 var loadUser = require('../force_login');
-var wkhtmltopdf = require('wkhtmltopdf');
 
 var session = require('express-session');
 var app = express();

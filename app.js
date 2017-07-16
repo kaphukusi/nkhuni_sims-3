@@ -10,7 +10,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var busboy = require('connect-busboy');
 var multer  = require('multer');
-var wkhtmltopdf = require('wkhtmltopdf');
 //var upload = multer({dest: '../uploads/'});
 
 
