@@ -17,6 +17,7 @@ var wkhtmltopdf = require('wkhtmltopdf');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var uploads_download = require('./routes/files');
 
 var model = require('./models/db_model');
 
@@ -93,6 +94,8 @@ app.use('/users/process_authentication', users);
 app.use('/new_department', routes);
 
 app.use('/add_department', routes);
+
+app.use("/files", uploads_download)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

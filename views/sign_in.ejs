@@ -26,7 +26,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/" class="logo">
       
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>User</b>Login</span>
@@ -47,11 +47,11 @@
     <a href="/"><b>User</b>Login</a>
   </div>
   <!-- /.login-logo -->
-  <div class="login-box-body">
+  <div class="login-box-body" style="text-align:center">
     <p class="login-box-msg">Sign in to start your session</p>
 
       <% if(typeof(errorMessage) !== 'undefined') {%>
-        <span><%= errorMessage %></span>
+        <p style="color:red"><%= errorMessage %></p>
       <% } %>
 
 

@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bcrypt-nodejs": "*",
+    "bcrypt": "*",
     "body-parser": "~1.13.2",
     "bookshelf": "^0.8.2",
     "connect-busboy": "0.0.2",
@@ -27,6 +27,9 @@
     "passport-local": "*",
     "serve-favicon": "~2.3.0",
     "when": "^3.7.7",
-    "json2csv":"*"
+    "json2csv":"*",
+    "csv-parser" : "*",
+    "express-fileupload" : "*",
+    "password-hash" : "*"
   }
 }

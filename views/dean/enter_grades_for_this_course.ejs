@@ -40,7 +40,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>SI</b>MS</span>
       <!-- logo for regular state and mobile devices -->
@@ -78,7 +78,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/sign_out"  class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -288,10 +288,15 @@
               </table>
 
               <div class="box-footer">
-                <button onclick="window.location.href='/'" class="btn btn-default">Cancel</button>
-                <button id ="download_csv" class="btn btn-default">Download CSV</button>
-                <button class="btn btn-default">Upload CSV</button>
-                <button onclick="window.location.href='/'" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Done</button>
+                <button id ="download_csv" class="btn btn-default" onclick="window.location='/files/csvdownload?course_code=<%= student.course_code %>&academic_year=2017&semester=<%= student.semester %>'">Download CSV Template</button>
+                <table class="pull-right">
+                    <tr><form ref='uploadForm' id='uploadForm'  method="post" action="/files/csvupload" encType="multipart/form-data">
+                          <td><input type="file" name="csv_results"></td>
+                          <td><input class="btn btn-default pull-left" type="submit" value="Upload CSV"></td>
+                        </form>
+                          <td><button onclick="window.location.href='/'" class="btn btn-primary pull-right" style="margin-left:15%"><i class="fa fa-save"></i> Done</button></td>
+                    </tr>
+                </table>
               </div>  
           </div>
 
