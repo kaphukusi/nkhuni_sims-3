@@ -192,18 +192,21 @@ router.post('/student/add', loadUser, function (req, res, next) {
       title: title
     }).then(function (student) {
       //console.log(student[0].rego)
-      knex("users").insert({
-        full_name: f_name,
-        user_name: rego,
-        reg_no: rego,
-        password: 'password123',
-        position: 'Student',
-        user_type_id: 008 
+      bcrypt.hash('password', saltRounds, function(err, hash){
+        knex("users").insert({
+          full_name: f_name,
+          user_name: rego,
+          reg_no: rego,
+          password: hash,
+          position: 'Student',
+          user_type_id: 008 
       }).then(function (user){
         console.log('user created')
       })
 
     });
+      });
+      
 
         res.redirect("/view_students");
             
