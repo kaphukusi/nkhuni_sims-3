@@ -6,6 +6,8 @@ var passport = require('passport');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 var loadUser = require('../force_login');
+var PDFDocument = require('pdfkit');
+
 
 var session = require('express-session');
 var app = express();
@@ -37,6 +39,8 @@ Student_image = model.Student_images;
 /* GET home page. */
 
 var sess;
+
+
 
 router.get('/', loadUser, function(req, res, next) {
     if (req.isAuthenticated() &&  sess.username){
@@ -268,17 +272,35 @@ router.get('/student', loadUser, function(req, res, next) {
 
 router.get('/view_results', loadUser, function(req, res, next) {
 
+  console.log(sess)
+
   knex('student_courses').select(['student_courses.reg_no', 'student_courses.course_code', 'student_courses.course_final_grade', 'student_images.image_url', 'courses.course_name']).leftJoin('student_images', 'student_images.reg_no', 'student_courses.reg_no').leftJoin('courses', 'courses.course_code', 'student_courses.course_code').where({'student_courses.reg_no': req.query.regno}).then(function(results){
   
-  res.render('./student/view_results', { title: 'SIMS | Student Results', results: results, result: results[0] });
+  res.render('./student/view_results', { title: 'SIMS | Student Results', results: results, result: results[0], reg: sess });
+  })
+});
+
+router.post('/view_selected_results', loadUser, function(req, res, next) {
+  var params = req.body;
+  var year_offered = params.year_offered;
+  var semester = params.semester_offered;
+
+  //console.log(sess)
+
+  knex('student_courses').select(['student_courses.reg_no', 'student_courses.course_code', 'student_courses.course_final_grade', 'student_images.image_url', 'courses.course_name']).leftJoin('student_images', 'student_images.reg_no', 'student_courses.reg_no').leftJoin('courses', 'courses.course_code', 'student_courses.course_code').where({'student_courses.reg_no': sess.username, 'student_courses.year_of_study': year_offered, 'student_courses.semester': semester}).then(function(results){
+  
+  res.render('./student/view_results', { title: 'SIMS | Student Results', results: results, result: results[0], reg: sess });
   })
 });
 
 router.get('/view_transcript', loadUser, function(req, res, next) {
 
+  var doc = new PDFDocument();
+
+
   knex('student_courses').select(['student_courses.reg_no', 'student_courses.course_code', 'student_courses.course_final_grade', 'student_images.image_url', 'courses.course_name', 'students.first_name', 'students.middle_name', 'students.last_name']).leftJoin('students', 'students.regno', 'student_courses.reg_no').leftJoin('student_images', 'student_images.reg_no', 'student_courses.reg_no').leftJoin('courses', 'courses.course_code', 'student_courses.course_code').where({'student_courses.reg_no': req.query.regno}).then(function(results){
   
-  res.render('./reports/view_transcript', { title: 'SIMS | View Transcript', results: results, result: results[0] });
+  res.render('./reports/view_transcript', { title: 'SIMS | View Transcript', results: results, result: results[0], doc: doc });
   })
 });
 
@@ -657,7 +679,7 @@ router.get('/enter_grades_for_this_course', loadUser, function(req, res, next) {
 
 router.get('/view_mycourses', loadUser, function(req, res, next) {
 
-  knex('programme_courses').select(['programme_courses.course_code', 'programme_courses.study_year', 'programme_courses.semester', 'students.regno', 'courses.course_name']).leftJoin('courses', 'courses.course_code', 'programme_courses.course_code').leftJoin('students', 'students.programme_id', 'programme_courses.programme_id').where({regno: req.query.regno}).then(function(mycourses){
+  knex('programme_courses').select(['programme_courses.course_code', 'programme_courses.study_year', 'programme_courses.semester', 'students.regno', 'courses.course_name']).leftJoin('courses', 'courses.course_code', 'programme_courses.course_code').leftJoin('students', 'students.programme_id', 'programme_courses.programme_id').whereRaw('students.year_of_study = programme_courses.study_year and students.semester = programme_courses.semester').where({regno: req.query.regno}).then(function(mycourses){
     //console.log(mycourses)
   res.render('./student/view_mycourses', { title: 'SIMS | Student Courses', mycourses: mycourses, mycourse: mycourses[0] });
   })

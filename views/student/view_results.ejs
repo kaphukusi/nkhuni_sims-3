@@ -49,14 +49,15 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/student_images/<%= result.image_url %>" class="user-image" alt="">
+              <script type="text/javascript"></script>
+              <img src="/student_images/<%#= result.image_url %>" class="user-image" alt="">
               <span class="hidden-xs">Full name  </span> 
               
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="/student_images/<%= result.image_url %>" class="img-circle" alt="User Image">
+                <img src="/student_images/<%#= result.image_url %>" class="img-circle" alt="User Image">
 
               </li>
               <!-- Menu Body -->
@@ -97,7 +98,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/student_images/<%= result.image_url %>" class="img-circle" alt="User Image">
+          <img src="/student_images/<%#= result.image_url %>" class="img-circle" alt="User Image">
         </div>
         
       </div>
@@ -116,7 +117,7 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="/student?regno=<%= result.reg_no %>">
+          <a href="/student?regno=<%= reg.username %>">
             <span>Dashboard</span> 
           </a>
           
@@ -127,14 +128,14 @@
             <span>Exam Results</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/view_results?regno=<%= result.reg_no %>"> Current Results</a></li>
-            <li><a href="/view_results?regno=<%= result.reg_no %>">Previous Results</a></li>
+            <li><a href="/view_results?regno=<%= reg.username %>"> Current Results</a></li>
+            <li><a href="/view_results?regno=<%= reg.username %>">Previous Results</a></li>
             
           </ul>
         </li>
         
         <li>
-          <a href="/view_mycourses?regno=<%= result.reg_no %>">
+          <a href="/view_mycourses?regno=<%= reg.username %>">
             <span>My Courses</span>
             </a>
         </li>
@@ -165,7 +166,7 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#results" data-toggle="tab">Exam Results</a></li>
-              <li><a href="/view_mycourses?regno=<%= result.reg_no %>">My Courses</a></li>
+              <li><a href="/view_mycourses?regno=<%= reg.username %>">My Courses</a></li>
               <li><a href="/student">Return to Dashboard</a></li>
             </ul>
             <div class="tab-content">
@@ -175,6 +176,37 @@
                     <div class="box-header">
                       <h3 class="box-title">This is how you faired</h3>
                     </div>
+                    
+                    <form method="POST" action="/view_selected_results">
+                    <p align="right">
+                     <font size="2.5em"> <b> Select:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+                     
+
+                     Year of Study
+
+                      <select name="year_offered">
+                        <option value="">select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      Semester
+
+                      <select name="semester_offered">
+                        <option value="">select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                      </select>
+                      &nbsp;&nbsp;&nbsp;
+                      <button type="submit" class="btn btn-info">NEXT</button>
+                      </form>
+                      </b>
+                      </font>
+                    </p>
+                      
             
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
@@ -187,17 +219,35 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <script type="text/javascript">
+                          if (results == "") {
+                            document.write("There is no data for the selected")
+                          }
+                          else{
+
+                        </script>
                         <% var count = 1%>
                         <% for (var row in results){ %>
                         <tr>
                           <td style="font-weight: bold;"><%= count %>.</td>
                           <td><%= results[row].course_name %> </td>
                           <td><%= results[row].course_final_grade %></td>
-                          <td> </td>
+                          <td> <script type="text/javascript">
+                            if (<%= results[row].course_final_grade %> >= 50) {
+                              document.write("PASS")
+                            }
+                            else{
+                              document.write("FAIL")
+                            }
+                          </script> </td>
                           
                         </tr>
                         <% count = count + 1 %>
                         <% } %>
+
+                        <script type="text/javascript">
+                          }
+                        </script>
                         
                         </tbody>
                         <tfoot>
@@ -214,7 +264,7 @@
 
 
                       </table>
-                       <a href="/view_transcript?regno=<%= result.reg_no %>"> View Transcript </a>
+                       <a href="/view_transcript?regno=<%= reg.username %>"> View Transcript </a>
                   
                     </div>
 

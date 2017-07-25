@@ -174,10 +174,19 @@
                       <h3 class="box-title">   &nbsp;  </h3>
                     </div>
 
-                  
 
                     <table class="table table-bordered table-striped">
-                       
+
+                       <tr>
+                         <td colspan="4" align="center">
+                            <img align="center" src="dist/img/logo.jpg" width="90px" class="img-circle" alt="Logo"> <br> 
+                            <b> <font size="4em">Nkhoma University</font> </b> <br>
+
+                            <b><font size="4em">Confidential Academic Transcript</font></b>
+
+                         </td>
+                       </tr>
+
                         <tr>
                           <th>Ref</th>
                           <td colspan="3"><%= result.reg_no %> </td>
@@ -209,7 +218,7 @@
                         <tr>
                           <td colspan="4">
                           <br>
-                            Senate, at its 92 nd Extraordinary Meeting held on 6 th , 7 th and 12 th February 2014 confirmed end of programme academic assessment results from Faculty of Information Science and Communications, and your academic performance was as follows: <br>
+                            Senate, at its Extraordinary Meeting, confirmed end of programme academic assessment results from Faculty of Education, and your academic performance was as follows: <br>
                           </td>
                         </tr>
                         <br>
@@ -227,7 +236,14 @@
                           <td style="font-weight: bold;"><%= results[row].course_code %></td>
                           <td style="font-weight: bold;"><%= results[row].course_name %> </td>
                           <td style="font-weight: bold;"><%= results[row].course_final_grade %></td>
-                          <td style="font-weight: bold;"> </td>
+                          <td style="font-weight: bold;"> <script type="text/javascript">
+                            if (<%= results[row].course_final_grade %> >= 50) {
+                              document.write("PASS")
+                            }
+                            else{
+                              document.write("FAIL")
+                            }
+                          </script> </td>
                           
                         </tr>
                         
@@ -238,8 +254,9 @@
                       </table>
             
                     <div class="box-body">
+                    <button class="btn btn-danger" onclick="generate(<%=doc%>)" data-dismiss="modal">Download</button>
                       
-                      <a href="wkhtmltopdf(null, 'http://google.com', 'google.pdf');"> Download </a>
+                    
                   
                     </div>
 
@@ -304,27 +321,56 @@
 </script>
 
 <script type="text/javascript">
+ 
+ function generate(doc){
+  
+  var stream = doc.pipe(blobStream());
 
-                                    function deleteSelectedItems() {
-                                        var newsIds = [];
-                                        $('input[name="news_ids[]"]:checked').each(function () {
-                                            newsIds.push(this.value);
-                                        });
-                                        console.log(newsIds);
-                                        if (newsIds.length > 0) {
-                                            jQuery.ajax({
-                                                type: "POST",
-                                                url: "/void_faculty",
-                                                data: "news_ids=" + newsIds,
-                                                success: function () {
-                                                    window.location = location.href;
-                                                }
+  // draw some text
+  doc.fontSize(25)
+     .text('Here is some vector graphics...', 100, 80);
+     
+  // some vector graphics
+  doc.save()
+     .moveTo(100, 150)
+     .lineTo(100, 250)
+     .lineTo(200, 250)
+     .fill("#FF3300");
+     
+  doc.circle(280, 200, 50)
+     .fill("#6600FF");
+     
+  // an SVG path
+  doc.scale(0.6)
+     .translate(470, 130)
+     .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
+     .fill('red', 'even-odd')
+     .restore();
+     
+  // and some justified text wrapped into columns
+  doc.text('And here is some wrapped text...', 100, 300)
+     .font('Times-Roman', 13)
+     .moveDown()
+     .text(lorem, {
+       width: 412,
+       align: 'justify',
+       indent: 30,
+       columns: 2,
+       height: 300,
+       ellipsis: true
+     });
+     
+  // end and display the document in the iframe to the right
+  doc.end();
+  stream.on('finish', function() {
+    iframe.src = stream.toBlobURL('application/pdf');
+  });
+}
 
-                                            });
-                                        }
-                                    }
-        </script>
-
+  
+</script>
 
 </body>
 </html>
+
+
