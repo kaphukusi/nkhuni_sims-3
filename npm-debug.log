@@ -24,7 +24,7 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 15 verbose pkgid nkhuni_sims-3@0.0.0
 16 verbose cwd /var/www/personal/nkhuni_sims-3
-17 error Linux 3.13.0-123-generic
+17 error Linux 3.13.0-135-generic
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 19 error node v5.10.1
 20 error npm  v3.8.3

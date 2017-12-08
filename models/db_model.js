@@ -57,7 +57,7 @@ var Student_images = bookshelf.Model.extend({
 
 var Users = bookshelf.Model.extend({
    tableName: 'users',
-   idAttribute: 'reg_no'
+   idAttribute: 'user_id'
 });
 
 var User_types = bookshelf.Model.extend({

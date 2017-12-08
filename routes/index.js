@@ -132,7 +132,7 @@ router.get('/new_student', loadUser, function(req, res, next) {
 
 });
 
-router.get('/view_students', loadUser, function(req, res, next) {
+router.get('/view_students', function(req, res, next) {
   knex('students').select(['students.regno', 'students.first_name', 'students.middle_name', 'students.last_name', 'students.maiden_name', 'students.year_of_study', 'students.semester', 'students.student_type', 'programmes.programme_name', 'programmes.programme_code']).leftJoin('programmes', 'students.programme_id', 'programmes.programme_id').then(function(students){
 
     res.render('./student/view_students', { title: 'SIMS | View Students', students: students  } );
@@ -321,13 +321,13 @@ router.get('/faculties_menu', loadUser, function(req, res, next) {
   res.render('./faculty/faculties_menu' , { title: 'SIMS | Faculties Menu' });
 });
 
-router.get('/new_falculty', loadUser, function(req, res, next) {
+router.get('/new_falculty', function(req, res, next) {
 
   res.render('./faculty/new_falculty', { title: 'SIMS | Add Faculty' });
 
 });
 
-router.post('/faculty/add', loadUser, function(req,res,next){
+router.post('/faculty/add', function(req,res,next){
 
     var params = req.body;
     var name = params.name;
@@ -387,7 +387,7 @@ router.post('/void_faculty', loadUser, function (req, res, next) {
     });
 });
 
-router.get('/view_falculties', loadUser, function(req, res, next) {
+router.get('/view_falculties', function(req, res, next) {
 
   knex('faculties').then(function(faculties){
 
@@ -995,25 +995,22 @@ router.get('/view_users', loadUser, function(req, res, next) {
 router.post('/users/add_dean', loadUser, function (req, res, next) {
 
     var user = req.body;
-
-
-    
     var usernamePromise = null;
     usernamePromise = new model.Users({user_name: user.username}).fetch();
 
-    
-
     return usernamePromise.then(function (model) {
         if (model) {
-            res.render('users/new_dean', {title: 'SIMS | Add User', errorMessage: 'username already exists'});
+          console.log("Not success!")
+            //res.render('users/new_dean', {title: 'SIMS | Add User', errorMessage: 'username already exists'});
         } else {
 
             //****************************************************//
             // More Validation to be added
             //****************************************************//
 
-            bcrypt.hash(user.password, saltRounds, function(err, hash) {
-                new Users({
+        
+            bcrypt.hash(user.password, saltRounds, function(err, hash){
+            knex("users").insert({
                     full_name:  user.full_name,
                     user_name:  user.username,
                     password:   hash,
@@ -1021,8 +1018,9 @@ router.post('/users/add_dean', loadUser, function (req, res, next) {
                     faculty:     user.faculty,
                     email:      user.email,
                     user_type_id:   004      
-                }).save().then(function (user) {
+                }).then(function (user) {
                     // sign in the newly registered user
+                    console.log("success!");
                     res.redirect('/view_users');
                 });
             });

@@ -270,6 +270,7 @@ CREATE TABLE `student_images` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_name` varchar(28) CHARACTER SET utf8 DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `full_name` varchar(28) CHARACTER SET utf8 DEFAULT NULL,
@@ -280,15 +281,12 @@ CREATE TABLE `users` (
   `lastlogin` int(11) DEFAULT NULL,
   `user_type_id` int(3) unsigned zerofill DEFAULT NULL,
   `DOB` int(11) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
   KEY `reg_no` (`reg_no`),
   KEY `user_type_id` (`user_type_id`),
   CONSTRAINT `users_ibfk_4` FOREIGN KEY (`reg_no`) REFERENCES `students` (`regno`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_5` FOREIGN KEY (`user_type_id`) REFERENCES `user_types` (`user_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO users (user_name, password,full_name,user_type_id) 
-VALUES('admin','$2a$10$XdPkVMJ9cx4NEaZhzN8D2ey.9yOeyIp2iy3of3RZBVFJehIzx966a',
-      'System Administrator','001');
 
 
 DROP TABLE IF EXISTS `user_types`;
